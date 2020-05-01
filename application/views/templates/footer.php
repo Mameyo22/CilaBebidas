@@ -2,7 +2,7 @@
    <footer class="site-footer">
       <div class="text-center">
         <p>
-          &copy; Copyrights <strong>Dashio</strong>. All Rights Reserved
+          &copy; Copyright <strong>Marcelo Diaz</strong>. 
         </p>
         <div class="credits">
           <!--
