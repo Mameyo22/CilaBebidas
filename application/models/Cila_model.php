@@ -2,6 +2,7 @@
 class Cila_model extends CI_model{
     
     public function __construct(){
+		
         $this->load->database();
     }
 
@@ -11,20 +12,29 @@ class Cila_model extends CI_model{
 		if ($query->num_rows() == 1){
 			//Validar password
 			$row = $query->row();
-			//if (password_verify($password, $row->userpwd)){
             if ($password == $row->userpwd)
-				$data = array('user_data' => array(
-					'nombre' => $row->username,
-					'id' => $row->userid,
-					'password' => $row->userpwd,
-					'email' => $row->useremail,
-                    'isAdmin' => $row->isadmin,
-                    'picture' => $row->userpicture			
-					)
-				);
 				return TRUE;
+			}else{
+				return FALSE;
 			}
+	}
+
+	public function get_user($userid, $username){
+		//Obtener el usuario
+		$query = $this->db->get_where('usuarios', array('username' => $username));
+		if ($query->num_rows() == 1){
+			$data = array(
+				'nombre' => $row->username,
+				'id' => $row->userId,
+				'password' => $row->userpwd,
+				'email' => $row->useremail,
+				'isAdmin' => $row->isadmin,
+				'picture' => $row->userpicture			
+			);
+			
+			return $data;
 		}
-		return FALSE;
-	}}
+
+	}
+}
 ?>

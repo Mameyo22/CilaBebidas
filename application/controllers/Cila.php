@@ -2,7 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Cila extends CI_Controller{
+	public function __construct(){
+		parent::__construct();
+		$this->load->model('cila_model');
 
+	}
     public function index(){
         $data['title'] = 'Lista de Precios';
         $this->loadview('index.php',$data);
@@ -37,16 +41,16 @@ class Cila extends CI_Controller{
 			$username = $this->input->post('username');
 			$userpassword = $this->input->post('userpassword');
 			
-			$result = $this->Cila_model->login($username, $userpassword);
+			$result = $this->cila_model->login($username, $userpassword);
 
 			if ($result == TRUE){
 				//login exitoso, guardar sesion
-				$result = $this->users_model->get_users(false,$username);
+				$result = $this->cila_model->get_user(false,$username);
 				if ($result != FALSE){
 					$session_data = array(
-						'userid' => $result['userid'],
-						'username' => $result['username'],
-						'email' => $result['useremail'],
+						'userid' => $result['id'],
+						'username' => $result['nombre'],
+						'email' => $result['email'],
                         'isAdmin' => $result['isAdmin'],
                         'picture' => $result['picture']
 					);
@@ -55,9 +59,7 @@ class Cila extends CI_Controller{
 				$this->session->set_userdata('logged_in',$session_data);
 				redirect(base_url('index.php/Cila'));
 			}else{
-				$data = array(
-					'error_message' => 'Usuario o Contraseña erronea'
-				);
+				$data['error_message'] = 'Usuario o Contraseña erronea';
 				$this->load->view('login', $data);
 			}
 		}

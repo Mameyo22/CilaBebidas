@@ -36,13 +36,13 @@
   <div id="login-page">
     <div class="container">
       <!-- <form class="form-login" action="index.html"> -->
-      <?php echo form_open('login', 'class="form-login"');?>
-	  <?php echo validation_errors();?>          
+      <?php echo form_open('Cila/login', 'class="form-login"');?>
+	    <?php echo validation_errors();?>          
         <h2 class="form-login-heading">CILA Bebidas</h2>
         <div class="login-wrap">
-          <input type="text" id="username" class="form-control" placeholder="Usuario" autofocus>
+          <input type="text" id="username" name="username" class="form-control" placeholder="Usuario" autofocus>
           <br>
-          <input type="password" id="userpassword" class="form-control" placeholder="Contraseña">
+          <input type="password" id="userpassword" name="userpassword" class="form-control" placeholder="Contraseña">
           <label class="checkbox">
             <span class="pull-right">
             <a data-toggle="modal" href="login.html#myModal"> Olvido su Contraseña?</a>
