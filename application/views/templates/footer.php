@@ -21,9 +21,9 @@
     <!--footer end-->
   </section>
   <!-- js placed at the end of the document so the pages load faster -->
-  <script src="<?= base_url()?>Dashio/lib/jquery/jquery.min.js"></script>
+  
 
-  <script src="<?= base_url()?>Dashio/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <script class="include" type="text/javascript" src="<?= base_url()?>Dashio/lib/jquery.dcjqaccordion.2.7.js"></script>
   <script src="<?= base_url()?>Dashio/lib/jquery.scrollTo.min.js"></script>
   <script src="<?= base_url()?>Dashio/lib/jquery.nicescroll.js" type="text/javascript"></script>
@@ -39,11 +39,11 @@
     $(document).ready(function() {
       var unique_id = $.gritter.add({
         // (string | mandatory) the heading of the notification
-        title: 'Welcome to Dashio!',
+        title: 'Bienvenido a Cila Bebidas',
         // (string | mandatory) the text inside the notification
-        text: 'Hover me to enable the Close Button. You can hide the left sidebar clicking on the button next to the logo.',
+        text: 'Pase el mouse sobre este aviso para habilitar el boton Cerrar. Puede ocultar la barra lateral haciendo click en el boton al costado del logo.',
         // (string | optional) the image to display on the left
-        image: 'img/ui-sam.jpg',
+        image: '<?= base_url(); ?>img/cocktail.png',
         // (bool | optional) if you want it to fade out on its own or just sit there
         sticky: false,
         // (int | optional) the time you want it to be alive for before fading out

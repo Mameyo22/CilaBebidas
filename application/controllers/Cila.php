@@ -5,22 +5,31 @@ class Cila extends CI_Controller{
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('cila_model');
-
 	}
     public function index(){
-        $data['title'] = 'Lista de Precios';
+		//Validar que se encuentre logueado
+		$data['title'] = 'Lista de Precios';
+		$data['active'] = 1;
+		//Obtener la lista de articulos
+		$data['articulos'] = $this->cila_model->getarticulos();
         $this->loadview('index.php',$data);
     }
 
     public function loadview($view = NULL, $data = NULL){
-        $this->load->view('templates/header.php',$data);
-        $this->load->view('templates/sidebar.php',$data);
-        if (is_null($view)){
-            $this->load->view('index.php', $data);
-        }else{
-            $this->load->view($view, $data);
-        }
-        $this->load->view('templates/footer.php', $data);
+		if (isset($this->session->userdata['logged_in'])){
+			//Ya se encuentra logueado, mostrar la pagina que pide
+			$this->load->view('templates/header.php',$data);
+			$this->load->view('templates/sidebar.php',$data);
+			if (is_null($view)){
+				$this->load->view('index.php', $data);
+			}else{
+				$this->load->view($view, $data);
+			}
+			$this->load->view('templates/footer.php', $data);
+		}else{
+			//Mostrar form de login
+			$this->load->view('login', $data);
+		}
     }
 
     public function login(){
@@ -67,14 +76,18 @@ class Cila extends CI_Controller{
 
 	public function logout(){
 		//Remover session data
-		$sess_array = array(
-			'username' => ''
-		);
+		$sess_array = array();
 		$this->session->unset_userdata('logged_in', $sess_array);
 		$data['message_display'] = 'Sesión finalizada';
 		$this->load->view('login', $data);
 	}
 
+	public function users(){
+		$data['title'] = 'Usuarios';
+		$data['active'] = 2; //punto 2 del sidebar
+		$data['usuarios'] = $this->cila_model->getUsers();
+		$this->loadview('users',$data);
+	}
 }
 
 ?>

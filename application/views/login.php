@@ -71,7 +71,9 @@
           </div>
         </div>
         <!-- modal -->
-      </form>
+      <?= 
+      form_close();
+       ?>
     </div>
   </div>
   <!-- js placed at the end of the document so the pages load faster -->

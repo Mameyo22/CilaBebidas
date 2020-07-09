@@ -11,24 +11,13 @@
 
           <!-- Menu -->
           <li class="mt">
-            <a class="active" href="index.html">
-              
+            <a class="<?= ($active == 1?'active':''); ?>" href="<?= base_url();?> ">
               <i class="fa fa-dollar"></i>
               <span>Lista de Precios</span>
               </a>
           </li>
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-wrench"></i>
-              <span>Maestros</span>
-              </a>
-            <ul class="sub">
-              <li><a href="general.html">Listas de Precios</a></li>
-              <li><a href="buttons.html">Articulos</a></li>
-            </ul>
-          </li>
           <li>
-            <a href="inbox.html">
+            <a class="<?= ($active == 2?'active':''); ?>" href="<?= base_url();?>index.php/cila/users">
               <i class="fa fa-users"></i>
               <span>Usuarios</span>
               </a>
