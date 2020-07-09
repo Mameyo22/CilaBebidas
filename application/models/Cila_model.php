@@ -29,7 +29,7 @@ class Cila_model extends CI_model{
 			$row = $query->row_array();			
 			$data = array(
 				'nombre' => $row['username'],
-				'id' => $row['userId'],
+				'id' => $row['userid'],
 				'password' => $row['userpwd'],
 				'email' => $row['useremail'],
 				'isAdmin' => $row['isadmin'],

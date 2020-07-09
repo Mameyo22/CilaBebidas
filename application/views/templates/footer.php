@@ -28,6 +28,7 @@
   <script src="<?= base_url()?>Dashio/lib/jquery.scrollTo.min.js"></script>
   <script src="<?= base_url()?>Dashio/lib/jquery.nicescroll.js" type="text/javascript"></script>
   <script src="<?= base_url()?>Dashio/lib/jquery.sparkline.js"></script>
+
   <!--common script for all pages-->
   <script src="<?= base_url()?>Dashio/lib/common-scripts.js"></script>
   <script type="text/javascript" src="<?= base_url()?>Dashio/lib/gritter/js/jquery.gritter.js"></script>

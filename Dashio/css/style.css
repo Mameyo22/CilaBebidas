@@ -12,13 +12,13 @@ Website: http://Alvarez.is/
 */
 
 /* Import fonts */
-@import url(http://fonts.googleapis.com/css?family=Ruda:400,700,900);
+/*@import url(http://fonts.googleapis.com/css?family=Ruda:400,700,900); */
 
 /* BASIC THEME CONFIGURATION */
 body {
     color: #797979;
 	background: #eaeaea;
-    font-family: 'Ruda', sans-serif;
+    font-family:'Trebuchet MS', sans-serif;
     padding: 0px !important;
     margin: 0px !important;
     font-size:13px;

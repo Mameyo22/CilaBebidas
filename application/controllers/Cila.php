@@ -23,6 +23,7 @@ class Cila extends CI_Controller{
 			if (is_null($view)){
 				$this->load->view('index.php', $data);
 			}else{
+				//TODO validar permisos, sino redirigir a pagina de error
 				$this->load->view($view, $data);
 			}
 			$this->load->view('templates/footer.php', $data);
@@ -84,9 +85,17 @@ class Cila extends CI_Controller{
 
 	public function users(){
 		$data['title'] = 'Usuarios';
-		$data['active'] = 2; //punto 2 del sidebar
+		$data['active'] = 3; //punto 2 del sidebar
 		$data['usuarios'] = $this->cila_model->getUsers();
 		$this->loadview('users',$data);
+	}
+
+	public function articulos(){
+		$data['title'] = 'ABM de Artículos';
+		$data['active'] = 2; //punto 2 del sidebar
+		//Obtener la lista de articulos
+		$data['articulos'] = $this->cila_model->getarticulos();
+		$this->loadview('articulos',$data);
 	}
 }
 
