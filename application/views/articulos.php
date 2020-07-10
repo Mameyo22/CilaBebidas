@@ -7,7 +7,7 @@
     <section id="main-content">
       <section class="wrapper">
       <h3><i class="fa fa-angle-right"></i> <?= $title ?></h3>      
-        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Nuevo"> Nuevo </button>
+        <a href="<?= base_url();?>index.php/cila/nuevoarticulo" ><button type="button" class="btn btn-default" data-toggle="tooltip" title="Nuevo"> Nuevo </button></a>
       <hr>
         <table id="arttable" class="display">
             <thead>

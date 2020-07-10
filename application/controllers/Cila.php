@@ -97,6 +97,14 @@ class Cila extends CI_Controller{
 		$data['articulos'] = $this->cila_model->getarticulos();
 		$this->loadview('articulos',$data);
 	}
+
+	public function nuevoarticulo(){
+		$data['title'] = 'Nuevo Articulo';
+		$data['active'] = 2; //punto 2 del sidebar
+
+		$this->loadview('nuevoarticulo', $data);
+
+	}
 }
 
 ?>
