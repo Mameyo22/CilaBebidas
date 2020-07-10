@@ -58,5 +58,18 @@ class Cila_model extends CI_model{
 			return $query->result_array();
 		}
 	}
+
+	public function set_articulo($filename=''){
+		//grabar un nuevo articulo
+		$data = array(
+			'articulodesc' => $this->input->post('articulodesc'),
+			'articuloprecio' => $this->input->post('articuloprecio'),
+			'articulobarcode' => $this->input->post('articulobarcode'),
+			'articuloimg' => $filename		
+		);
+
+		return $this->db->insert('articulos', $data);
+
+	}
 }
 ?>

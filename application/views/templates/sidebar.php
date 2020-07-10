@@ -8,6 +8,9 @@
       $username = $_SESSION['logged_in']['username'];
       $isadmin = $_SESSION['logged_in']['isAdmin'];
       $url_pic = $_SESSION['logged_in']['picture'];
+      if (!isset($active)){
+        $active = 1;
+      }
     ?>
     <aside>
       <div id="sidebar" class="nav-collapse ">
