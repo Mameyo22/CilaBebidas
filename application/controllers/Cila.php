@@ -135,7 +135,23 @@ class Cila extends CI_Controller{
 		}	
 	}		
 
+	public function viewarticulo($articuloid){
+		$data['title'] = 'Detalle de Artículo';
+		$data['active'] = 1; //punto 2 del sidebar
+		//Obtener la lista de articulos
+		$data['articulo'] = $this->cila_model->getarticulos($articuloid);
+		$this->loadview('verarticulo',$data);
 
+	}
+
+	public function editarticulo($articuloid){
+		$data['title'] = 'Detalle de Artículo';
+		$data['active'] = 2; //punto 2 del sidebar
+		//Obtener la lista de articulos
+		$data['articulo'] = $this->cila_model->getarticulos($articuloid);
+		$this->loadview('editararticulo',$data);
+
+	}
 }
 
 ?>

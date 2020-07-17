@@ -23,8 +23,9 @@
                     <td style="text-align: right;"><?= $articulo['articuloprecio']; ?></td>
                     <td><img class="img-product" src="<?=base_url().'/img/products/'.$articulo['articuloimg']; ?>" alt="Sin Imagen">  </td>
                     <td>
-                        <button type="button " class="btn btn-info" data-toggle="tooltip" title="Ver Detalle"><i class="fa fa-search"></i> </button>
-                        <button type="button" class="btn btn-success" data-toggle="tooltip" title="Editar"><i class="fa fa-edit"></i></button>
+                        <a href="<?= base_url(); ?>index.php/cila/editarticulo/<?= $articulo['articuloid']; ?> ">
+                            <button type="button" class="btn btn-success" data-toggle="tooltip" title="Editar"><i class="fa fa-edit"></i></button>
+                        </a>
                     </td>
                 </tr>
                 <?php } ?>
