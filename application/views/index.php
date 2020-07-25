@@ -12,7 +12,6 @@
             <table id="arttable" class="display">
                 <thead>
                     <th>Código</th>
-                    <th>Imagen</th>
                     <th>Descripcion</th>
                     <th>Precio</th>
                     <th>Acciones</th>
@@ -21,7 +20,6 @@
                     <?php foreach($articulos as $articulo){ ?>
                     <tr>
                         <td><?= $articulo['articuloid']; ?></td>
-                        <td><img class="img-product" src="<?=base_url().'/img/products/'.$articulo['articuloimg']; ?>" alt="Sin Imagen">  </td>
                         <td><?= $articulo['articulodesc']; ?></td>
                         <td><?= $articulo['articuloprecio']; ?></td>
                         <td>
