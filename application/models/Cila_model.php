@@ -71,5 +71,9 @@ class Cila_model extends CI_model{
 		return $this->db->insert('articulos', $data);
 
 	}
+
+	public function del_articulo($articuloid){
+		return $this->db->delete('articulos',array('articuloid' => $articuloid));
+	}
 }
 ?>

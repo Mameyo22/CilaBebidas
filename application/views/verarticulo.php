@@ -19,7 +19,11 @@
                   <div class="form-group ">
                     <label for="ccomment" class="control-label col-lg-2">Imagen</label>
                     <div class="col-lg-10">
+                      <?php if ($articulo['articuloimg'] == ''){ ?>
+                        <img class="fileupload-new thumbnail" style="width: 200px;height: 150px;" src="<?=base_url().'/img/noimage.png'?>" alt="Sin Imagen">
+                      <?php }else{ ?>
                         <img class="fileupload-new thumbnail" src="<?=base_url().'/img/products/'.$articulo['articuloimg']; ?>" alt="Sin Imagen">
+                      <?php } ?>
                       
                     </div>
                   </div>

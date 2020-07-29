@@ -7,7 +7,7 @@
     <section id="main-content">
       <section class="wrapper">
       <h3><i class="fa fa-angle-right"></i> <?= $title ?></h3>      
-        <a href="<?= base_url();?>index.php/cila/nuevoarticulo" ><button type="button" class="btn btn-default" data-toggle="tooltip" title="Nuevo"> Nuevo </button></a>
+        <a href="<?= base_url();?>index.php/cila/nuevoarticulo" ><button type="button" class="btn btn-primary" data-toggle="tooltip" title="Nuevo"> Nuevo </button></a>
       <hr>
         <table id="arttable" class="display">
             <thead>
@@ -21,7 +21,12 @@
                 <tr>
                     <td><?= $articulo['articulodesc']; ?></td>
                     <td style="text-align: right;"><?= $articulo['articuloprecio']; ?></td>
-                    <td><img class="img-product" src="<?=base_url().'/img/products/'.$articulo['articuloimg']; ?>" alt="Sin Imagen">  </td>
+                    <td>
+                    <?php if ($articulo['articuloimg'] == ''){ ?>
+                        <img class="img-product" src="<?=base_url().'/img/noimage.png'?>" alt="Sin Imagen">
+                      <?php }else{ ?>
+                        <img class="img-product" src="<?=base_url().'/img/products/'.$articulo['articuloimg']; ?>" alt="Sin Imagen">  </td>
+                      <?php } ?>
                     <td>
                         <a href="<?= base_url(); ?>index.php/cila/editarticulo/<?= $articulo['articuloid']; ?> ">
                             <button type="button" class="btn btn-success" title="Editar"><i class="fa fa-edit"></i></button>
@@ -64,12 +69,13 @@ $(document).ready(function(){
     });
     //Eliminar articulo
     $("#eliminar").click(function(){
-
-        //usar ajax para eliminar el registro
-
+        $.post("<?= base_url();?>index.php/cila/deletearticulo/",{articuloid:id}).done(function(data){
+                console.log(data);
+            });
         //Ocultar modal
         $("#myModal").modal('hide');
-       
+        //Refrescar tabla
+        location.reload();
     });
 });
 </script>
