@@ -13,6 +13,7 @@
             <thead>
                 <th>Descripcion</th>
                 <th>Precio</th>
+				<th>Código de Barras</th>
                 <th></th>
                 <th>Acciones</th>
             </thead>
@@ -21,6 +22,7 @@
                 <tr>
                     <td><?= $articulo['articulodesc']; ?></td>
                     <td style="text-align: right;"><?= $articulo['articuloprecio']; ?></td>
+					<td><?= $articulo['articulobarcode']; ?></td>
                     <td>
                     <?php if ($articulo['articuloimg'] == ''){ ?>
                         <img class="img-product" src="<?=base_url().'/img/noimage.png'?>" alt="Sin Imagen">

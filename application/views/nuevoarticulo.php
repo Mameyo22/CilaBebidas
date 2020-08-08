@@ -26,7 +26,7 @@
                   <div class="form-group ">
                     <label for="curl" class="control-label col-lg-2">Codigo de Barras (opcional)</label>
                     <div class="col-lg-10">
-                      <input class="form-control " id="articulosbarcode" type="text" name="articulosbarcode">
+                      <input class="form-control " id="articulobarcode" type="text" name="articulobarcode">
                     </div>
                   </div>
                   <div class="form-group ">
