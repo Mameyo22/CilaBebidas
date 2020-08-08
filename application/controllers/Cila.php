@@ -152,6 +152,13 @@ class Cila extends CI_Controller{
 		$this->loadview('editararticulo',$data);
 
 	}
+
+	public function deletearticulo(){
+		$articuloid = $_POST['articuloid'];
+		//eliminar el registro
+		$this->cila_model->del_articulo($articuloid);
+		echo 'Ok';
+	}
 }
 
 ?>

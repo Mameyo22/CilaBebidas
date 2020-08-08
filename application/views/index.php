@@ -25,7 +25,7 @@
                         <td><?= $articulo['articuloprecio']; ?></td>
 						<td><?= $articulo['articulobarcode']; ?></td>
                         <td>
-                            <a href="<?= base_url(); ?>index.php/cila/viewarticulo/<?= $articulo['articuloid']; ?> "> <button type="button " class="btn btn-default" data-toggle="tooltip" title="Ver Detalle"><i class="fa fa-search"></i> </button></a>
+                            <a href="<?= base_url(); ?>index.php/cila/viewarticulo/<?= $articulo['articuloid']; ?> "> <button type="button " class="btn btn-info" data-toggle="tooltip" title="Ver Detalle"><i class="fa fa-search"></i> </button></a>
                             <button type="button" class="btn btn-success" data-toggle="tooltip" title="Agregar a Carrito"><i class="fa fa-shopping-cart"></i></button>
                         </td>
                     </tr>

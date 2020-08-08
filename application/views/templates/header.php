@@ -14,8 +14,8 @@
   
 
   <!-- Bootstrap core CSS -->
-  <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"> -->
-  <link href="<?= base_url(); ?>Dashio/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+  
   <!--external css-->
   <link href="<?= base_url(); ?>Dashio/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>Dashio/css/zabuto_calendar.css">

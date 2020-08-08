@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="Dashboard">
   <meta name="keyword" content="Cila, Bebidas, Holmberg, Cerveza, Vinos, Kiosco, Cigarrillos, Paladium">
-  <title><?= $title ?></title>
+  <title>Cila Bebidas</title>
 
   <!-- Favicons -->
   <link href="<?= base_url(); ?>Dashio/img/favicon-32x32.png" rel="icon">

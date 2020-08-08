@@ -32,12 +32,13 @@
                   <div class="form-group ">
                     <label for="ccomment" class="control-label col-lg-2">Imagen (opcional)</label>
                     <div class="col-lg-10">
-                      <input type="file" name="articuloimg" id="articuloimg" class="btn btn-info">
                       <?php if($articulo['articuloimg'] != NULL){ ?>
                         <img class="fileupload-new thumbnail" src="<?=base_url().'/img/products/'.$articulo['articuloimg']; ?>" alt="Sin Imagen">
                       <?php }else{ ?>
                         <img class="fileupload-new thumbnail" src="<?=base_url();?>/img/noimage.png" alt="Sin Imagen">
                       <?php } ?>
+                      <hr>
+                      <input type="file" name="articuloimg" id="articuloimg" class="btn btn-info">
                     </div>
                   </div>
                   <div class="form-group">
