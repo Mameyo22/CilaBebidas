@@ -14,6 +14,7 @@
                     <th>Código</th>
                     <th>Descripcion</th>
                     <th>Precio</th>
+					<th>BarCode</th>
                     <th>Acciones</th>
                 </thead>
                 <tbody>
@@ -22,6 +23,7 @@
                         <td><?= $articulo['articuloid']; ?></td>
                         <td><?= $articulo['articulodesc']; ?></td>
                         <td><?= $articulo['articuloprecio']; ?></td>
+						<td><?= $articulo['articulobarcode']; ?></td>
                         <td>
                             <a href="<?= base_url(); ?>index.php/cila/viewarticulo/<?= $articulo['articuloid']; ?> "> <button type="button " class="btn btn-default" data-toggle="tooltip" title="Ver Detalle"><i class="fa fa-search"></i> </button></a>
                             <button type="button" class="btn btn-success" data-toggle="tooltip" title="Agregar a Carrito"><i class="fa fa-shopping-cart"></i></button>
@@ -37,7 +39,7 @@
 $(document).ready(function(){
     var arttable = $('#arttable').DataTable({
         dom: 'Brtip',
-        buttons: ['copy', 'excel', 'pdf', 'print']        
+        buttons: ['copy', 'excel', 'pdf', 'print']
         
     });
     $('.dataTables_filter input').hide();
