@@ -26,15 +26,16 @@
                   <div class="form-group ">
                     <label for="curl" class="control-label col-lg-2">Codigo de Barras (opcional)</label>
                     <div class="col-lg-10">
-                      <input class="form-control " id="articulobarcode" type="text" name="articulobarcode">
+                      <input class="form-control " id="articulobarcode" type="number" name="articulobarcode">
                     </div>
                   </div>
-                  <div class="form-group ">
+
+                  <!-- <div class="form-group ">
                     <label for="ccomment" class="control-label col-lg-2">Imagen (opcional)</label>
                     <div class="col-lg-10">
                       <input type="file" name="articuloimg" id="articuloimg" class="btn btn-info">
                     </div>
-                  </div>
+                  </div> -->
                   <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
                       <button class="btn btn-success" type="submit"><i class="fa fa-save"> </i> Guardar</button>

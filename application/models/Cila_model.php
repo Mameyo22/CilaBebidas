@@ -45,7 +45,7 @@ class Cila_model extends CI_model{
 		$query = $this->db->get('usuarios');
 		return $query->result_array();
 	}
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public function getarticulos($articuloid = NULL){
 		if ($articuloid){
 			//recuperar info de ese solo articulo
@@ -72,8 +72,23 @@ class Cila_model extends CI_model{
 
 	}
 
+	public function edit_articulo($filename=''){
+		//editar articulo
+		$articuloid = $this->input->post('articuloid');
+		$data = array(
+			'articulodesc' => $this->input->post('articulodesc'),
+			'articuloprecio' => $this->input->post('articuloprecio'),
+			'articulobarcode' => $this->input->post('articulobarcode'),
+			'articuloimg' => $filename		
+		);
+
+		return $this->db->update('articulos', $data,array('articuloid'=>$articuloid ));
+
+	}
+
+
 	public function del_articulo($articuloid){
-		return $this->db->delete('articulos',array('articuloid' => $articuloid));
+		//return $this->db->delete('articulos',array('articuloid' => $articuloid));
 	}
 }
 ?>

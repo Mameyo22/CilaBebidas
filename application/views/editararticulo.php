@@ -10,11 +10,12 @@
       <div class="form-panel">
               <div class=" form">
                 <?php echo validation_errors(); ?>
-                <?= form_open('cila/nuevoarticulo',array('class' => "cmxform form-horizontal style-form",'enctype'=>"multipart/form-data" )); ?>
+                <?= form_open('cila/editarticulo',array('class' => "cmxform form-horizontal style-form",'enctype'=>"multipart/form-data" )); ?>
                   <div class="form-group ">
                     <label for="cname" class="control-label col-lg-2">Descripcion (requerido)</label>
                     <div class="col-lg-10">
                       <input class=" form-control" id="articulodesc" name="articulodesc" minlength="2" type="text" required="" value="<?= $articulo['articulodesc'] ?>">
+					  <input type="hidden" id="articuloid" name="articuloid" value="<?= $articulo['articuloid'] ?>">
                     </div>
                   </div>
                   <div class="form-group ">
@@ -26,19 +27,7 @@
                   <div class="form-group ">
                     <label for="curl" class="control-label col-lg-2">Codigo de Barras (opcional)</label>
                     <div class="col-lg-10">
-                      <input class="form-control " id="articulosbarcode" type="text" name="articulosbarcode" value="<?= $articulo['articulobarcode'] ?>">
-                    </div>
-                  </div>
-                  <div class="form-group ">
-                    <label for="ccomment" class="control-label col-lg-2">Imagen (opcional)</label>
-                    <div class="col-lg-10">
-                      <?php if($articulo['articuloimg'] != NULL){ ?>
-                        <img class="fileupload-new thumbnail" src="<?=base_url().'/img/products/'.$articulo['articuloimg']; ?>" alt="Sin Imagen">
-                      <?php }else{ ?>
-                        <img class="fileupload-new thumbnail" src="<?=base_url();?>/img/noimage.png" alt="Sin Imagen">
-                      <?php } ?>
-                      <hr>
-                      <input type="file" name="articuloimg" id="articuloimg" class="btn btn-info">
+                      <input class="form-control " id="articulosbarcode" type="number" name="articulosbarcode" value="<?= $articulo['articulobarcode'] ?>">
                     </div>
                   </div>
                   <div class="form-group">

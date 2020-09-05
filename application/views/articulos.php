@@ -14,7 +14,6 @@
                 <th>Descripcion</th>
                 <th>Precio</th>
 				<th>Código de Barras</th>
-                <th></th>
                 <th>Acciones</th>
             </thead>
             <tbody>
@@ -23,12 +22,6 @@
                     <td><?= $articulo['articulodesc']; ?></td>
                     <td style="text-align: right;"><?= $articulo['articuloprecio']; ?></td>
 					<td><?= $articulo['articulobarcode']; ?></td>
-                    <td>
-                    <?php if ($articulo['articuloimg'] == ''){ ?>
-                        <img class="img-product" src="<?=base_url().'/img/noimage.png'?>" alt="Sin Imagen">
-                      <?php }else{ ?>
-                        <img class="img-product" src="<?=base_url().'/img/products/'.$articulo['articuloimg']; ?>" alt="Sin Imagen">  </td>
-                      <?php } ?>
                     <td>
                         <a href="<?= base_url(); ?>index.php/cila/editarticulo/<?= $articulo['articuloid']; ?> ">
                             <button type="button" class="btn btn-success" title="Editar"><i class="fa fa-edit"></i></button>
@@ -71,9 +64,12 @@ $(document).ready(function(){
     });
     //Eliminar articulo
     $("#eliminar").click(function(){
-        $.post("<?= base_url();?>index.php/cila/deletearticulo/",{articuloid:id}).done(function(data){
-                console.log(data);
-            });
+
+		console.log('ID: ' + id);
+		//{articuloid:id}
+        // $.post("<?= base_url();?>index.php/cila/deletearticulo/"+id).done(function(data){
+        //         console.log(data);
+        //     });
         //Ocultar modal
         $("#myModal").modal('hide');
         //Refrescar tabla

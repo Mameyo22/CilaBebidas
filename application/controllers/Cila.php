@@ -89,7 +89,7 @@ class Cila extends CI_Controller{
 		$data['usuarios'] = $this->cila_model->getUsers();
 		$this->loadview('users',$data);
 	}
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public function articulos(){
 		$data['title'] = 'ABM de Artículos';
 		$data['active'] = 2; //punto 2 del sidebar
@@ -108,6 +108,7 @@ class Cila extends CI_Controller{
 			$this->loadview('nuevoarticulo', $data);	
 		}else{
 			//subir la imagen
+			/*
 			$filename = '';
 			if (isset($_FILES['articuloimg'])){
 
@@ -129,7 +130,7 @@ class Cila extends CI_Controller{
 					$metadata = $this->upload->data();
 					$filename=$metadata['file_name'];
 				}
-			}
+			}*/
 			$this->cila_model->set_articulo($filename);
 			redirect(base_url('index.php/cila/articulos'));
 		}	
@@ -144,20 +145,54 @@ class Cila extends CI_Controller{
 
 	}
 
-	public function editarticulo($articuloid){
-		$data['title'] = 'Detalle de Artículo';
+	public function editarticulo($articuloid = NULL){
+		$data['title'] = 'Detalle de Artículo ' . $articuloid;
 		$data['active'] = 2; //punto 2 del sidebar
 		//Obtener la lista de articulos
 		$data['articulo'] = $this->cila_model->getarticulos($articuloid);
-		$this->loadview('editararticulo',$data);
+		
+		$this->form_validation->set_rules('articuloprecio','Precio','required');
+
+		if ($this->form_validation->run() === FALSE){
+			$this->loadview('editararticulo',$data);
+		}else{
+			//subir la imagen
+			/*
+			$filename = '';
+			if (isset($_FILES['articuloimg'])){
+
+				$config['upload_path'] = './img/products/';
+				$config['allowed_types'] = 'gif|jpg|png';
+				$config['max_size'] = 2000;
+				$config['max_width'] = 1500;
+				$config['max_height'] = 1500;
+				
+				$new_name = time().$_FILES["articuloimg"]['name'];
+				$config['file_name'] = $new_name;
+	
+				$this->load->library('upload', $config);
+				
+				if (!$this->upload->do_upload('articuloimg')) {
+					$error = array('error' => $this->upload->display_errors());
+					$this->loadview('nuevoarticulo', $error);	
+				}else{
+					$metadata = $this->upload->data();
+					$filename=$metadata['file_name'];
+				}
+			}*/
+			$filename = '';
+			$this->cila_model->edit_articulo($filename);
+			redirect(base_url('index.php/cila/articulos'));
+		}
+
 
 	}
 
-	public function deletearticulo(){
-		$articuloid = $_POST['articuloid'];
+	public function deletearticulo($articuloid){
+		//$articuloid = $_POST['articuloid'];
 		//eliminar el registro
 		$this->cila_model->del_articulo($articuloid);
-		echo 'Ok';
+		echo 'Eliminado ' . $articuloid;
 	}
 }
 
