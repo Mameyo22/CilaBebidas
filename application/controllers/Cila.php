@@ -131,6 +131,7 @@ class Cila extends CI_Controller{
 					$filename=$metadata['file_name'];
 				}
 			}*/
+			$filename = '';
 			$this->cila_model->set_articulo($filename);
 			redirect(base_url('index.php/cila/articulos'));
 		}	
