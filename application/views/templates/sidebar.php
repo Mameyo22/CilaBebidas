@@ -33,8 +33,8 @@
               <span class="dcjq-icon"></span>
             </a>
             <ul class="sub" style="display: block;">
-              <li class="<?= ($active == 2?'active':''); ?>"><a href="<?= base_url();?>index.php/cila/articulos">Articulos</a></li>
-              <li class="<?= ($active == 3?'active':''); ?>"><a href="<?= base_url();?>index.php/cila/users">Usuarios</a></li>
+               <li class="<?= ($active == 2?'active':''); ?>"><a href="<?= base_url();?>index.php/cila/articulos">Articulos</a></li>
+               <li class="<?= ($active == 3?'active':''); ?>"><a href="<?= base_url();?>index.php/cila/users">Usuarios</a></li>
             </ul>
           </li>
         </ul>

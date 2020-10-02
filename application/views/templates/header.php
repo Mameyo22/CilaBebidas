@@ -58,9 +58,7 @@
       <!--logo start-->
       <a href="<?= base_url();?>" class="logo"><b>CILA<span> Bebidas</span></b></a>
       <!--logo end-->
-      <div class="nav notify-row" id="top_menu">
-
-      </div>
+ 
       <div class="top-menu">
         <ul class="nav pull-right top-menu">
           <li><a class="logout" href="<?= base_url();?>index.php/cila/logout">Salir</a></li>

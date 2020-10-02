@@ -15,7 +15,7 @@ class Cila extends CI_Controller{
         $this->loadview('index.php',$data);
     }
 
-    public function loadview($view = NULL, $data = NULL){
+    public function loadview($view = NULL, $data = NULL,$onlyadmin = FALSE){
 		if (isset($this->session->userdata['logged_in'])){
 			//Ya se encuentra logueado, mostrar la pagina que pide
 			$this->load->view('templates/header.php',$data);
@@ -24,7 +24,13 @@ class Cila extends CI_Controller{
 				$this->load->view('index.php', $data);
 			}else{
 				//TODO validar permisos, sino redirigir a pagina de error
-				$this->load->view($view, $data);
+				$isAdmin = $this->session->userdata['logged_in']['isAdmin'];
+				if ($onlyadmin && $isAdmin == 0 ){
+					$this->load->view('templates/forbbiden');
+				}else{
+					$this->load->view($view, $data);
+				}
+								
 			}
 			$this->load->view('templates/footer.php', $data);
 		}else{
@@ -87,7 +93,7 @@ class Cila extends CI_Controller{
 		$data['title'] = 'Usuarios';
 		$data['active'] = 3; //punto 2 del sidebar
 		$data['usuarios'] = $this->cila_model->getUsers();
-		$this->loadview('users',$data);
+		$this->loadview('users',$data,TRUE); //Solo admin
 	}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public function articulos(){
@@ -95,7 +101,7 @@ class Cila extends CI_Controller{
 		$data['active'] = 2; //punto 2 del sidebar
 		//Obtener la lista de articulos
 		$data['articulos'] = $this->cila_model->getarticulos();
-		$this->loadview('articulos',$data);
+		$this->loadview('articulos',$data, TRUE); //solo admin
 	}
 
 	public function nuevoarticulo(){
