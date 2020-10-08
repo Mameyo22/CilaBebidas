@@ -12,20 +12,20 @@
                 <?php echo validation_errors(); ?>
                 <?= form_open('cila/editarticulo',array('class' => "cmxform form-horizontal style-form",'enctype'=>"multipart/form-data" )); ?>
                   <div class="form-group ">
-                    <label for="cname" class="control-label col-lg-2">Descripcion (requerido)</label>
+                    <label for="articulodesc" class="control-label col-lg-2">Descripcion (requerido)</label>
                     <div class="col-lg-10">
                       <input class=" form-control" id="articulodesc" name="articulodesc" minlength="2" type="text" required="" value="<?= $articulo['articulodesc'] ?>">
 					  <input type="hidden" id="articuloid" name="articuloid" value="<?= $articulo['articuloid'] ?>">
                     </div>
                   </div>
                   <div class="form-group ">
-                    <label for="cemail" class="control-label col-lg-2">Precio (requerido)</label>
+                    <label for="articuloprecio" class="control-label col-lg-2">Precio (requerido)</label>
                     <div class="col-lg-4">
                       <input class="form-control " id="articuloprecio"" type="number" step="0.10" name="articuloprecio" required="" value="<?= $articulo['articuloprecio'] ?>">
                     </div>
                   </div>
                   <div class="form-group ">
-                    <label for="curl" class="control-label col-lg-2">Codigo de Barras (opcional)</label>
+                    <label for="articulobarcode" class="control-label col-lg-2">Codigo de Barras (opcional)</label>
                     <div class="col-lg-10">
                       <input class="form-control " id="articulobarcode" type="number" name="articulobarcode" value="<?= $articulo['articulobarcode'] ?>">
                     </div>

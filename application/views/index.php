@@ -6,6 +6,9 @@
     <!--main content start-->
     <section id="main-content">
       <section class="wrapper">
+        <section id="cart-shop">
+                <h1>Compra Actual</h1>
+        </section>
         <h3><i class="fa fa-angle-right"></i> <?= $title ?></h3>      
             <input type="search" id="searchtext" placeholder="Ingrese el texto a buscar ..." class="form-control">
             <hr>
@@ -26,6 +29,7 @@
 						<td><?= $articulo['articulobarcode']; ?></td>
                         <td>
                             <a href="<?= base_url(); ?>index.php/cila/viewarticulo/<?= $articulo['articuloid']; ?> "> <button type="button " class="btn btn-default" data-toggle="tooltip" title="Ver Detalle"><i class="fa fa-search"></i> </button></a>
+                            <input type="number" name="cant" id="cant" value="1" min="1" class="inputcantidad">
                             <button type="button" class="btn btn-success" data-toggle="tooltip" title="Agregar a Carrito"><i class="fa fa-shopping-cart"></i></button>
                         </td>
                     </tr>
@@ -55,6 +59,9 @@ $(document).ready(function(){
     });
     //Llevar el foco al inicio
     $('#searchtext').focus();
+
+    //Carrito de Compras
+
 
 });
 </script>
