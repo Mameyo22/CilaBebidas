@@ -53,7 +53,6 @@ class Cila_model extends CI_model{
 			return $query->row_array();
 		}else{
 			//recuperar la lista de articulos
-			//TODO agregar paginado y/o ajax a datatable
 			$query = $this->db->get('articulos');
 			return $query->result_array();
 		}
@@ -90,5 +89,29 @@ class Cila_model extends CI_model{
 	public function del_articulo($articuloid){
 		//return $this->db->delete('articulos',array('articuloid' => $articuloid));
 	}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+	public function get_carrito($user_id){
+		$this->db->select('*');
+		$this->db->from('carrito');
+		$this->db->join('articulos','carrito.articuloid=articulos.articuloid');
+		$this->db->where(array('carritoid' => $user_id));
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function set_carrito($user_id, $articuloid, $cantidad){
+		$articulo = $this->cila_model->getarticulos($articulo);
+
+		$data = array(
+			'carritoid' => $user_id,
+			'articuloid' => $articuloid,
+			'cantidad' => $cantidad
+		);
+
+		return $this->db->insert('carrito', $data, array('carritoid' => $user_id) );
+
+	}
+
 }
 ?>

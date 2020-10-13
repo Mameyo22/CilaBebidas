@@ -7,7 +7,7 @@
       $userid = $_SESSION['logged_in']['userid'];
       $username = $_SESSION['logged_in']['username'];
       $isadmin = $_SESSION['logged_in']['isAdmin'];
-      $url_pic = $_SESSION['logged_in']['picture'];
+	  $url_pic = $_SESSION['logged_in']['picture'];
       if (!isset($active)){
         $active = 1;
       }

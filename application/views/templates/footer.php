@@ -31,11 +31,6 @@
   <script src="<?= base_url()?>Dashio/lib/common-scripts.js"></script>
   <script type="text/javascript" src="<?= base_url()?>Dashio/lib/gritter/js/jquery.gritter.js"></script>
   <script type="text/javascript" src="<?= base_url()?>Dashio/lib/gritter-conf.js"></script>
-  
-  <script type="application/javascript">
-    $(document).ready(function() {
-    }
-  </script>
 </body>
 
 </html>

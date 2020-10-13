@@ -58,7 +58,7 @@ $(document).ready(function(){
     var id = 0;
     $('#arttable').DataTable();
 
-     $('.btn_dlt').click(function(){
+    $('.btn_dlt').click(function(){
         //obtener el id
         id = $(this).attr('data-id');
     });

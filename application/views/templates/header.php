@@ -42,6 +42,7 @@
   ======================================================= -->
 </head>
 
+<!-- Obtener datos del carrito -->
 <body>
   <section id="container">
     <!-- **********************************************************************************************************************************************************
@@ -61,8 +62,8 @@
           <!-- settings start -->
           <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-              <i class="fa fa-tasks"></i>
-              <span class="badge bg-theme">4</span>
+              <i class="fa fa-shopping-cart"></i>
+              <span class="badge bg-theme"><?= count($carrito) ?></span>
               </a>
             <ul class="dropdown-menu extended tasks-bar">
               <div class="notify-arrow notify-arrow-green"></div>

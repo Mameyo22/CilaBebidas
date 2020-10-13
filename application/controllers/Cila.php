@@ -12,6 +12,9 @@ class Cila extends CI_Controller{
 		$data['active'] = 1;
 		//Obtener la lista de articulos
 		$data['articulos'] = $this->cila_model->getarticulos();
+		//Obtner el usuario logueado
+		$userid = $_SESSION['logged_in']['userid'];
+		$data['carrito'] = $this->cila_model->get_carrito($userid);
         $this->loadview('index.php',$data);
     }
 
@@ -23,7 +26,6 @@ class Cila extends CI_Controller{
 			if (is_null($view)){
 				$this->load->view('index.php', $data);
 			}else{
-				//TODO validar permisos, sino redirigir a pagina de error
 				$isAdmin = $this->session->userdata['logged_in']['isAdmin'];
 				if ($onlyadmin && $isAdmin == 0 ){
 					$this->load->view('templates/forbbiden');
@@ -200,6 +202,14 @@ class Cila extends CI_Controller{
 		//eliminar el registro
 		$this->cila_model->del_articulo($articuloid);
 		echo 'Eliminado ' . $articuloid;
+	}
+//////////////////////////////////////
+// Carrito de Compra
+//////////////////////////////////////
+
+
+	public function get_cart(){
+		//Devuelve el carrrtip
 	}
 }
 

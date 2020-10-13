@@ -24,13 +24,13 @@
                     <?php foreach($articulos as $articulo){ ?>
                     <tr>
                         <td><?= $articulo['articuloid']; ?></td>
-                        <td><?= $articulo['articulodesc']; ?></td>
+                        <td><a href="<?= base_url(); ?>index.php/cila/viewarticulo/<?= $articulo['articuloid']; ?> "><?= $articulo['articulodesc']; ?> </a></td>
                         <td><?= $articulo['articuloprecio']; ?></td>
 						<td><?= $articulo['articulobarcode']; ?></td>
                         <td>
-                            <a href="<?= base_url(); ?>index.php/cila/viewarticulo/<?= $articulo['articuloid']; ?> "> <button type="button " class="btn btn-default" data-toggle="tooltip" title="Ver Detalle"><i class="fa fa-search"></i> </button></a>
-                            <input type="number" name="cant" id="cant" value="1" min="1" class="inputcantidad">
-                            <button type="button" class="btn btn-success" data-toggle="tooltip" title="Agregar a Carrito"><i class="fa fa-shopping-cart"></i></button>
+                            
+                            <input type="number" name="cant" id="cant_<?= $articulo['articuloid'] ?>" value="1" min="1" class="inputcantidad">
+                            <button type="button" class="btn btn-success btn_cart" data-toggle="tooltip" title="Agregar a Carrito" id="add" data-id="<?= $articulo['articuloid'] ?>"><i class="fa fa-shopping-cart"></i></button>
                         </td>
                     </tr>
                     <?php } ?>
@@ -41,6 +41,7 @@
     <!--main content end-->
 <script>
 $(document).ready(function(){
+	var articuloid= 0;
     var arttable = $('#arttable').DataTable({
         dom: 'Brtip',
         buttons: ['copy', 'excel', 'pdf', 'print'],
@@ -60,8 +61,19 @@ $(document).ready(function(){
     //Llevar el foco al inicio
     $('#searchtext').focus();
 
-    //Carrito de Compras
 
+	//TODO No pedir aca la cantidad, sino mostrar un modal donde se pida la cantidad y la confirmacion
+
+	//Carrito de Compras
+	$('.btn_cart').click(function(){
+        //obtener el id
+		articuloid = $(this).attr('data-id');
+		//Obtener la cantidad
+		var cantidad = $('#cant_'+articuloid).val()
+		console.log(articuloid+ ' ' + cantidad);
+
+		//llamar a la carga del carrito
+    });
 
 });
 </script>
