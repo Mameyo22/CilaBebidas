@@ -12,15 +12,20 @@ class Cila extends CI_Controller{
 		$data['active'] = 1;
 		//Obtener la lista de articulos
 		$data['articulos'] = $this->cila_model->getarticulos();
-		//Obtner el usuario logueado
-		$userid = $_SESSION['logged_in']['userid'];
-		$data['carrito'] = $this->cila_model->get_carrito($userid);
         $this->loadview('index.php',$data);
     }
 
     public function loadview($view = NULL, $data = NULL,$onlyadmin = FALSE){
 		if (isset($this->session->userdata['logged_in'])){
 			//Ya se encuentra logueado, mostrar la pagina que pide
+
+			//Obtner carrito de compras
+			if (isset($_SESSION['logged_in'])){
+				$userid = $_SESSION['logged_in']['userid'];
+				$data['carrito'] = $this->cila_model->get_carrito($userid);
+			}
+
+
 			$this->load->view('templates/header.php',$data);
 			$this->load->view('templates/sidebar.php',$data);
 			if (is_null($view)){

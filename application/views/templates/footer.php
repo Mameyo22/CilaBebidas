@@ -20,7 +20,7 @@
   </section>
   <!-- js placed at the end of the document so the pages load faster -->
   
-  <script src="<?= base_url()?>/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="<?= base_url()?>Dashio/lib/bootstrap/js/bootstrap.min.js"></script>
   <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
   <script class="include" type="text/javascript" src="<?= base_url()?>Dashio/lib/jquery.dcjqaccordion.2.7.js"></script>
   <script src="<?= base_url()?>Dashio/lib/jquery.scrollTo.min.js"></script>

@@ -12,7 +12,7 @@
         <h3><i class="fa fa-angle-right"></i> <?= $title ?></h3>      
             <input type="search" id="searchtext" placeholder="Ingrese el texto a buscar ..." class="form-control">
             <hr>
-            <table id="arttable" class="display">
+            <table id="arttable" class="display" style="width:100%">
                 <thead>
                     <th>Código</th>
                     <th>Descripcion</th>
@@ -24,26 +24,70 @@
                     <?php foreach($articulos as $articulo){ ?>
                     <tr>
                         <td><?= $articulo['articuloid']; ?></td>
-                        <td><a href="<?= base_url(); ?>index.php/cila/viewarticulo/<?= $articulo['articuloid']; ?> "><?= $articulo['articulodesc']; ?> </a></td>
+                        <td><?= $articulo['articulodesc']; ?></td>
                         <td><?= $articulo['articuloprecio']; ?></td>
 						<td><?= $articulo['articulobarcode']; ?></td>
                         <td>
+							<a href="<?= base_url(); ?>index.php/cila/viewarticulo/<?= $articulo['articuloid']; ?> ">
+							<button type="button" class="btn btn-info" data-toggle="tooltip" title="Ver Articulo" id="ver" ?><i class="fa fa-search"></i></button>
+							</a>
                             
-                            <input type="number" name="cant" id="cant_<?= $articulo['articuloid'] ?>" value="1" min="1" class="inputcantidad">
-                            <button type="button" class="btn btn-success btn_cart" data-toggle="tooltip" title="Agregar a Carrito" id="add" data-id="<?= $articulo['articuloid'] ?>"><i class="fa fa-shopping-cart"></i></button>
+                            <button type="button" class="btn btn-success btn_cart" data-toggle="modal" data-target="#myModal" title="Agregar a Carrito" id="add" data-id="<?= $articulo['articuloid'] ?>" data-desc="<?= $articulo['articulodesc'] ?>" data-precio="<?= $articulo['articuloprecio'] ?>" ><i class="fa fa-shopping-cart"></i></button>
                         </td>
                     </tr>
                     <?php } ?>
                 </tbody>
             </table>
+				<!-- Modal para carrito -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h4 class="modal-title" id="myModalLabel">Agregar Artículo</h4>
+						</div>
+						<div class="modal-body">
+							<div class=""></div>
+								<div class="form-group">
+									<label for="articulodesc">Articulo</label>
+									<input class="form-control" type="text" id="articulodesc" readonly>
+								</div>
+								<div class="form-group">
+									<label for="articuloprecio">Precio</label>
+									<input class="form-control" type="text" id="articuloprecio" readonly>
+								</div>
+								<div class="form-group">
+									<label for="cantidad">Cantidad</label>
+									<input class="form-control" id="cantidad" name="cantidad" min="1" type="number" required value="1">
+								</div>
+								<div class="form-group">
+									<label for="cantidad">Total</label>
+									<input class="form-control" id="total" type="text" readonly>
+								</div>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success" id="agregar">Agregar</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+						</div>
+					</div>
+				</div>
+			</div>       
      </section>
     </section>
     <!--main content end-->
+ 
+
 <script>
 $(document).ready(function(){
 	var articuloid= 0;
+	var articulodesc = '';
+	var articuloprecio = 0.00;
+	var cantidad = 1;
+	var total = 0.00;
     var arttable = $('#arttable').DataTable({
-        dom: 'Brtip',
+		dom: 'Brtip',
+		responsive: true,
         buttons: ['copy', 'excel', 'pdf', 'print'],
 		"columnDefs": [
             {
@@ -62,19 +106,28 @@ $(document).ready(function(){
     $('#searchtext').focus();
 
 
-	//TODO No pedir aca la cantidad, sino mostrar un modal donde se pida la cantidad y la confirmacion
-
 	//Carrito de Compras
 	$('.btn_cart').click(function(){
         //obtener el id
 		articuloid = $(this).attr('data-id');
-		//Obtener la cantidad
-		var cantidad = $('#cant_'+articuloid).val()
-		console.log(articuloid+ ' ' + cantidad);
+		articulodesc = $(this).attr('data-desc');
+		articuloprecio = $(this).attr('data-precio');
+		total = cantidad * articuloprecio;
+		$('#articulodesc').val(articulodesc);
+		$('#articuloprecio').val('$ ' + articuloprecio);
+		$('#total').val('$ ' + total);
+
+		console.log(articuloid+ ' ' + articulodesc + ' ' + articuloprecio);
 
 		//llamar a la carga del carrito
     });
 
+	$('#cantidad').change(function(){
+		cantidad = $(this).val();
+		total = cantidad * articuloprecio;
+		$('#total').val('$ ' + total);
+
+	});
 });
 </script>
  
