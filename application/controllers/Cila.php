@@ -213,8 +213,21 @@ class Cila extends CI_Controller{
 //////////////////////////////////////
 
 
-	public function get_cart(){
-		//Devuelve el carrrtip
+	public function view_cart(){
+		//Devuelve el carrrtio
+		$data['title'] = 'Detalle de la Compra';
+		$data['active'] = 1; //punto 2 del sidebar
+		//Obtener carrito
+		$userid = $_SESSION['logged_in']['userid'];
+		$data['carrito'] = $this->cila_model->get_carrito($userid);
+		$this->loadview('shop-cart',$data);
+
+	}
+
+	public function add_to_cart($userid,$articulo, $cantidad){
+		//Obtener el usuario logueado
+		$this->cila_model->set_carrito($userid, $articulo, $cantidad);
+		return 'Ok';
 	}
 }
 

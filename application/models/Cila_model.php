@@ -101,7 +101,7 @@ class Cila_model extends CI_model{
 	}
 
 	public function set_carrito($user_id, $articuloid, $cantidad){
-		$articulo = $this->cila_model->getarticulos($articulo);
+		//$articulo = $this->cila_model->getarticulos($articulo);
 
 		$data = array(
 			'carritoid' => $user_id,

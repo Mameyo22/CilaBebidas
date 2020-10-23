@@ -7,8 +7,11 @@
     <section id="main-content">
       <section class="wrapper">
         <section id="cart-shop">
-                <h1>Compra Actual</h1>
+			<div>
+				
+			</div>
         </section>
+		
         <h3><i class="fa fa-angle-right"></i> <?= $title ?></h3>      
             <input type="search" id="searchtext" placeholder="Ingrese el texto a buscar ..." class="form-control">
             <hr>
@@ -63,6 +66,7 @@
 								<div class="form-group">
 									<label for="cantidad">Total</label>
 									<input class="form-control" id="total" type="text" readonly>
+									<input type="hidden" naem="userid" id="userid" value="<?=  $userid = $_SESSION['logged_in']['userid']; ?>">
 								</div>
 
 						</div>
@@ -73,7 +77,7 @@
 					</div>
 				</div>
 			</div>       
-     </section>
+    </section>
     </section>
     <!--main content end-->
  
@@ -85,6 +89,8 @@ $(document).ready(function(){
 	var articuloprecio = 0.00;
 	var cantidad = 1;
 	var total = 0.00;
+	var userid = 0;
+
     var arttable = $('#arttable').DataTable({
 		dom: 'Brtip',
 		responsive: true,
@@ -108,7 +114,7 @@ $(document).ready(function(){
 
 	//Carrito de Compras
 	$('.btn_cart').click(function(){
-        //obtener el id
+		//obtener el id
 		articuloid = $(this).attr('data-id');
 		articulodesc = $(this).attr('data-desc');
 		articuloprecio = $(this).attr('data-precio');
@@ -118,7 +124,9 @@ $(document).ready(function(){
 		$('#total').val('$ ' + total);
 
 		console.log(articuloid+ ' ' + articulodesc + ' ' + articuloprecio);
-
+		
+		userid = $('#userid').val();
+		console.log(userid);
 		//llamar a la carga del carrito
     });
 
@@ -127,6 +135,18 @@ $(document).ready(function(){
 		total = cantidad * articuloprecio;
 		$('#total').val('$ ' + total);
 
+	});
+
+	//Agregar al carrito
+	$('#agregar').click(function(){
+		//llamar al evento ajax que graba el carrito
+		$.post("<?= base_url();?>index.php/cila/add_to_cart/"+userid+"/"+articuloid + "/" + cantidad).done(function(data){
+                 console.log(data);
+             });
+		//Cerrar el modal
+		$("#myModal").modal('hide');
+		//actualizar icono de carrito
+		location.reload();
 	});
 });
 </script>

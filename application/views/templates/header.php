@@ -63,68 +63,37 @@
           <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
               <i class="fa fa-shopping-cart"></i>
-              <span class="badge bg-theme"><?= count($carrito) ?></span>
-              </a>
+             	<span class="badge bg-important"><?= count($carrito) ?></span>
+            </a>
             <ul class="dropdown-menu extended tasks-bar">
               <div class="notify-arrow notify-arrow-green"></div>
               <li>
-                <p class="green">You have 4 pending tasks</p>
+                <p class="green">Detalle</p>
               </li>
-              <li>
-                <a href="index.html#">
-                  <div class="task-info">
-                    <div class="desc">Dashio Admin Panel</div>
-                    <div class="percent">40%</div>
-                  </div>
-                  <div class="progress progress-striped">
-                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                      <span class="sr-only">40% Complete (success)</span>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="index.html#">
-                  <div class="task-info">
-                    <div class="desc">Database Update</div>
-                    <div class="percent">60%</div>
-                  </div>
-                  <div class="progress progress-striped">
-                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                      <span class="sr-only">60% Complete (warning)</span>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="index.html#">
-                  <div class="task-info">
-                    <div class="desc">Product Development</div>
-                    <div class="percent">80%</div>
-                  </div>
-                  <div class="progress progress-striped">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                      <span class="sr-only">80% Complete</span>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="index.html#">
-                  <div class="task-info">
-                    <div class="desc">Payments Sent</div>
-                    <div class="percent">70%</div>
-                  </div>
-                  <div class="progress progress-striped">
-                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
-                      <span class="sr-only">70% Complete (Important)</span>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li class="external">
-                <a href="#">See All Tasks</a>
-              </li>
+				  <?php
+				  	$total = 0;
+					foreach($carrito as $item){ 
+						$total += $item['cantidad'] * $item['articuloprecio'];
+					?>
+						<li>
+						<a href="<?= base_url();?>index.php/cila/view_cart">
+							<div class="task-info">
+								<div class="desc">[<?= $item['cantidad'] ?> ] <?= $item['articulodesc']?> </div>
+								<div class="percent">  $ <?= number_format($item['cantidad'] * $item['articuloprecio'],2) ?> </div>
+							</div>
+						 </a>
+						</li>
+
+				<?php	}  ?>
+				<li>
+					<a href="<?= base_url();?>index.php/cila/view_cart">
+						<div class="task-total">
+							<div class="desc">Total</div>
+							<div class="total"> $ <?= number_format($total,2) ?></div>
+						</div>
+					</a>
+              	</li>
+
             </ul>
           </li>
           <!-- settings end -->
