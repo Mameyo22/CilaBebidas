@@ -47,10 +47,10 @@
 					<div class="form-group ">
                     	<label for="vuelto"  id="labelvuelto" class="control-label ">Resta Pagar</label>
                       	<input type="text" class="form-control red" id="vuelto"  value="<?= $total ?> " readonly>
+						<input type="hidden" naem="userid" id="userid" value="<?=  $userid = $_SESSION['logged_in']['userid']; ?>">
                     </div>
-					<button class="btn btn-success btn-lg" id="fincompra">
-							Finalizar Compra
-                	</button>
+					<button class="btn btn-success btn-lg" id="fincompra" disabled>Finalizar Compra</button>
+					<button class="btn btn-danger btn-lg" id="vaciar" >Eliminar</button>
 				</div>
 
 			</div>
@@ -59,9 +59,10 @@
 <script>
 $(document).ready(function(){
 	var id = 0;
-	var total =  $('#total').val();
+	var total =  0;
 	var pago = 0;
 	var vuelto = total;
+	var userid = $('#userid').val();
 
 	$('.btn_dlt').click(function(){
         //obtener el id
@@ -75,30 +76,39 @@ $(document).ready(function(){
 	});
 	
 	$('#pago').change(function(){
+		total =  $('#total').val();
 		pago = $(this).val();
-		 vuelto = total - pago;
-		console.log('total '+ total);
-		if (total > pago){
+		vuelto = total - pago;
+		console.log('total '+ total + ' vuelto: ' + vuelto);
+		if (eval(total) > eval(pago)){
 			$('#labelvuelto').html('Resta Pagar');
 			$('#vuelto').val(vuelto);
+			$('#fincompra').attr('disabled',true);
 		}else{
 			$('#labelvuelto').html('Vuelto');
 			$('#vuelto').val(vuelto * -1);
+			$('#fincompra').attr('disabled',false);
 		}
 	});
 
 	$('#fincompra').click(function(){
 		//validar que no haya resto a pagar
-		if (total > pago){
+		if (eval(total) > eval(pago)){
 			alert('completar el Pago');
 		}else{
-			//TODO pasar el nro de user
-			$.post("<?= base_url();?>index.php/cila/clear_cart/").done(function(data){
+
+			$.post("<?= base_url();?>index.php/cila/clear_cart/"+userid).done(function(data){
                  console.log(data);
 			 });
 			location.reload();
 		}
 
+	});
+	$('#vaciar').click(function(){
+			$.post("<?= base_url();?>index.php/cila/clear_cart/"+userid).done(function(data){
+                 console.log(data);
+			 });
+			location.reload();
 	});
 });
 </script>
