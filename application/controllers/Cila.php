@@ -229,6 +229,16 @@ class Cila extends CI_Controller{
 		$this->cila_model->set_carrito($userid, $articulo, $cantidad);
 		return 'Ok';
 	}
+
+	public function del_to_cart($carritoitem){
+		$this->cila_model->del_carrito($carritoitem);
+		return 'Ok';
+	}
+
+	public function clear_cart($userid){
+		$this->cila_model->clear_carrito($userid);
+		return 'Ok';
+	}
 }
 
 ?>

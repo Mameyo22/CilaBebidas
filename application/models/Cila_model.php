@@ -112,6 +112,13 @@ class Cila_model extends CI_model{
 		return $this->db->insert('carrito', $data, array('carritoid' => $user_id) );
 
 	}
+	public function del_carrito($carritoitem){
+		return $this->db->delete('carrito',array('carritoitem' => $carritoitem));
+	}
+
+	public function clear_carrito($user_id){
+		return $this->db->delete('carrito',array('carritoid' => $user_id));
+	}
 
 }
 ?>

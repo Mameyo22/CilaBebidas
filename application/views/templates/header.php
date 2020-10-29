@@ -78,7 +78,7 @@
 						<li>
 						<a href="<?= base_url();?>index.php/cila/view_cart">
 							<div class="task-info">
-								<div class="desc">[<?= $item['cantidad'] ?> ] <?= $item['articulodesc']?> </div>
+								<div class="desc"><?= $item['cantidad'] ?> -  <?= $item['articulodesc']?> </div>
 								<div class="percent">  $ <?= number_format($item['cantidad'] * $item['articuloprecio'],2) ?> </div>
 							</div>
 						 </a>
