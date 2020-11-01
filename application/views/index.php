@@ -6,11 +6,6 @@
     <!--main content start-->
     <section id="main-content">
       <section class="wrapper">
-        <section id="cart-shop">
-			<div>
-				
-			</div>
-        </section>
 		
         <h3><i class="fa fa-angle-right"></i> <?= $title ?></h3>      
             <input type="search" id="searchtext" placeholder="Ingrese el texto a buscar ..." class="form-control">

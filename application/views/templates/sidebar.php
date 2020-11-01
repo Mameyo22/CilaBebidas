@@ -20,14 +20,20 @@
           <h5 class="centered"><?= $username; ?></h5>
 
           <!-- Menu -->
-          <li class="mt">
+          <li class="">
             <a class="<?= ($active == 1?'active':''); ?>" href="<?= base_url();?> ">
               <i class="fa fa-dollar"></i>
               <span>Lista de Precios</span>
               </a>
           </li>
+		  <li class="">
+            <a class="<?= ($active == 2?'active':''); ?>" href="<?= base_url();?>index.php/cila/view_cart ">
+              <i class="fa fa-shopping-cart"></i>
+              <span>Facturación</span>
+              </a>
+          </li>
           <li class="sub-menu dcjq-parent-li"> 
-            <a class="<?= ($active != 1?'active':''); ?> dcjq-parent" href="javascript:;">
+            <a class="<?= ($active == 3?'active':''); ?> dcjq-parent" href="javascript:;">
               <i class="fa fa-cogs"></i>
               <span>Maestros</span>
               <span class="dcjq-icon"></span>

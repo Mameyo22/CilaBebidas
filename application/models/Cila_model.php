@@ -120,5 +120,10 @@ class Cila_model extends CI_model{
 		return $this->db->delete('carrito',array('carritoid' => $user_id));
 	}
 
+	public function upd_carrito($carritoitem, $cantidad){
+		//Actualiza la cantidad
+		return $this->db->update('carrito', array('cantidad' => $cantidad),array('carritoitem' => $carritoitem));
+	}
+
 }
 ?>

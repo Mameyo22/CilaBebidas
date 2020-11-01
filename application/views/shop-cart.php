@@ -1,7 +1,13 @@
 <!--main content start-->
 	<section id="main-content">
     	<section class="wrapper">
-			<h3>Detalle de la Compra</h3>
+			<h3>Venta</h3>
+			<div class="col-md-8">
+				<div class="">
+					<input type="search" class="form-control" name="searchtext" id="searchtext" placeholder="utilice el lector de barras">
+				</div>
+				<br>
+			</div>
 			<div class="col-md-8">
 				<div class="content-panel">
 					<h4>Items</h4>
@@ -21,10 +27,17 @@
 						?>
 						<tr>
 							<td><?= $item['cantidad'] ?></td>
+
 							<td><?= $item['articulodesc'] ?></td>
 							<td>$ <?= number_format($item['articuloprecio'],2) ?></td>
 							<td>$ <?= number_format($item['cantidad'] * $item['articuloprecio'],2) ?></td>
-							<td><button class="btn btn-danger btn_dlt" data-id="<?= $item['carritoitem'] ?>"><i class="fa fa-trash"></i> </button></td>
+							<td>
+								<button class="btn btn-info btn_sust" data-id="<?= $item['carritoitem'] ?>" data-cant="<?= $item['cantidad'] ?>" title="Disminuir Cantidad"><i class="fa fa-minus"></i></button>
+								<button class="btn btn-success btn_add" data-id="<?= $item['carritoitem'] ?>" data-cant="<?= $item['cantidad'] ?>" title="Aumentar Cantidad"><i class="fa fa-plus"></i></button>
+								&nbsp;| &nbsp;
+								<button class="btn btn-danger btn_dlt" data-id="<?= $item['carritoitem'] ?>" title="Eliminar"><i class="fa fa-trash"></i> </button>
+								
+							</td>
 						</tr>
 						<?php } ?>
 						
@@ -35,7 +48,7 @@
 			</div>
 			<div class="col-md-4">
 				<div class="showback">
-					<h4>Compra </h4>
+					<h4>Pago </h4>
 					<div class="form-group ">
                     	<label for="total" class="control-label ">Total a Pagar</label>
                    		<input type="text" class="form-control" id="total" value="<?= $total ?> " readonly>
@@ -46,7 +59,7 @@
                     </div>
 					<div class="form-group ">
                     	<label for="vuelto"  id="labelvuelto" class="control-label ">Resta Pagar</label>
-                      	<input type="text" class="form-control red" id="vuelto"  value="<?= $total ?> " readonly>
+                      	<input type="text" class="form-control red" id="vuelto"  value="<?= $total ?> " readonly disabled="true">
 						<input type="hidden" naem="userid" id="userid" value="<?=  $userid = $_SESSION['logged_in']['userid']; ?>">
                     </div>
 					<button class="btn btn-success btn-lg" id="fincompra" disabled>Finalizar Compra</button>
@@ -63,7 +76,11 @@ $(document).ready(function(){
 	var pago = 0;
 	var vuelto = total;
 	var userid = $('#userid').val();
+	var cantidad = 0;
+	 //Llevar el foco al inicio
+	 $('#searchtext').focus();
 
+	//Borrar Articulo 
 	$('.btn_dlt').click(function(){
         //obtener el id
         id = $(this).attr('data-id');
@@ -74,7 +91,8 @@ $(document).ready(function(){
 			 });
 		location.reload();
 	});
-	
+
+	//Cambio de pago
 	$('#pago').change(function(){
 		total =  $('#total').val();
 		pago = $(this).val();
@@ -90,7 +108,7 @@ $(document).ready(function(){
 			$('#fincompra').attr('disabled',false);
 		}
 	});
-
+	//Finalizar Compra
 	$('#fincompra').click(function(){
 		//validar que no haya resto a pagar
 		if (eval(total) > eval(pago)){
@@ -104,11 +122,47 @@ $(document).ready(function(){
 		}
 
 	});
+
+	//Eliminar Compra
 	$('#vaciar').click(function(){
 			$.post("<?= base_url();?>index.php/cila/clear_cart/"+userid).done(function(data){
                  console.log(data);
 			 });
 			location.reload();
 	});
+
+	//agregar añ carrito
+	$('#searchtext').change(function(){
+		var barcode = $(this).val();
+		alert(barcode);
+	});
+	
+	//cambiar cantidad
+	$('.btn_sust').click(function(){
+		id = $(this).attr('data-id');
+		var cantidad = eval($(this).attr('data-cant'));
+		if (cantidad > 1){
+			cantidad--;
+			console.log(id + ' -> ' +cantidad);
+			$.post("<?= base_url();?>index.php/cila/upd_to_cart/"+id+"/"+cantidad).done(function(data){
+				console.log(data);
+			});
+		}
+		location.reload();
+	});
+
+	$('.btn_add').click(function(){
+		id = $(this).attr('data-id');
+		var cantidad = eval($(this).attr('data-cant'));
+		cantidad++;
+		console.log(id + ' -> ' +cantidad);
+		$.post("<?= base_url();?>index.php/cila/upd_to_cart/"+id+"/"+cantidad).done(function(data){
+				console.log(data);
+			});
+		location.reload();
+	});
+	
+
+
 });
 </script>

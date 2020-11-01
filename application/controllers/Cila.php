@@ -105,7 +105,7 @@ class Cila extends CI_Controller{
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public function articulos(){
 		$data['title'] = 'ABM de Artículos';
-		$data['active'] = 2; //punto 2 del sidebar
+		$data['active'] = 3; //punto 2 del sidebar
 		//Obtener la lista de articulos
 		$data['articulos'] = $this->cila_model->getarticulos();
 		$this->loadview('articulos',$data, TRUE); //solo admin
@@ -113,37 +113,13 @@ class Cila extends CI_Controller{
 
 	public function nuevoarticulo(){
 		$data['title'] = 'Nuevo Articulo';
-		$data['active'] = 2; //punto 2 del sidebar
+		$data['active'] = 3; //punto 2 del sidebar
 		
 		$this->form_validation->set_rules('articuloprecio','Precio','required');
 
 		if ($this->form_validation->run() === FALSE){
 			$this->loadview('nuevoarticulo', $data);	
 		}else{
-			//subir la imagen
-			/*
-			$filename = '';
-			if (isset($_FILES['articuloimg'])){
-
-				$config['upload_path'] = './img/products/';
-				$config['allowed_types'] = 'gif|jpg|png';
-				$config['max_size'] = 2000;
-				$config['max_width'] = 1500;
-				$config['max_height'] = 1500;
-				
-				$new_name = time().$_FILES["articuloimg"]['name'];
-				$config['file_name'] = $new_name;
-	
-				$this->load->library('upload', $config);
-				
-				if (!$this->upload->do_upload('articuloimg')) {
-					$error = array('error' => $this->upload->display_errors());
-					$this->loadview('nuevoarticulo', $error);	
-				}else{
-					$metadata = $this->upload->data();
-					$filename=$metadata['file_name'];
-				}
-			}*/
 			$filename = '';
 			$this->cila_model->set_articulo($filename);
 			redirect(base_url('index.php/cila/articulos'));
@@ -161,7 +137,7 @@ class Cila extends CI_Controller{
 
 	public function editarticulo($articuloid = NULL){
 		$data['title'] = 'Detalle de Artículo ' . $articuloid;
-		$data['active'] = 2; //punto 2 del sidebar
+		$data['active'] = 3; //punto 2 del sidebar
 		//Obtener la lista de articulos
 		$data['articulo'] = $this->cila_model->getarticulos($articuloid);
 		
@@ -216,7 +192,7 @@ class Cila extends CI_Controller{
 	public function view_cart(){
 		//Devuelve el carrrtio
 		$data['title'] = 'Detalle de la Compra';
-		$data['active'] = 1; //punto 2 del sidebar
+		$data['active'] = 2; //punto 2 del sidebar
 		//Obtener carrito
 		$userid = $_SESSION['logged_in']['userid'];
 		$data['carrito'] = $this->cila_model->get_carrito($userid);
@@ -239,6 +215,12 @@ class Cila extends CI_Controller{
 		$this->cila_model->clear_carrito($userid);
 		return 'Ok';
 	}
+
+	public function upd_to_cart($carritoitem, $cantidad){
+		$this->cila_model->upd_carrito($carritoitem, $cantidad);
+		return 'Ok';
+	}
+
 }
 
 ?>
