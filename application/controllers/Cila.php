@@ -205,6 +205,18 @@ class Cila extends CI_Controller{
 		$this->cila_model->set_carrito($userid, $articulo, $cantidad);
 		return 'Ok';
 	}
+	public function add_to_cart_bc($userid, $barcode, $cantidad){
+		//Obtner el articulo en base al codigo de barra
+
+		$articulo = $this->cila_model->get_articulo_bc($barcode);
+		return $this->cila_model->set_carrito($userid, $articulo, $cantidad);
+/*		if ($articulo){
+			return 'Ok';
+		}else{
+			return 'Articulo no Encontrado';
+		}
+*/	
+	}
 
 	public function del_to_cart($carritoitem){
 		$this->cila_model->del_carrito($carritoitem);

@@ -58,6 +58,20 @@ class Cila_model extends CI_model{
 		}
 	}
 
+	public function get_articulo_bc($barcode){
+		//Obtener el articulo en base al codigo de barras
+		$query = $this->db->get_where('articulos',array('articulobarcode' => $barcode));
+
+		if ($query->num_rows() == 1){
+
+			$articulo = $query->row_array();
+			return $articulo['articuloid'];
+		}else{
+			return $query->num_rows();
+		}
+
+	}
+
 	public function set_articulo($filename=''){
 		//grabar un nuevo articulo
 		$data = array(
@@ -90,6 +104,7 @@ class Cila_model extends CI_model{
 		//return $this->db->delete('articulos',array('articuloid' => $articuloid));
 	}
 
+
 //////////////////////////////////////////////////////////////////////////////////////////
 	public function get_carrito($user_id){
 		$this->db->select('*');
@@ -101,17 +116,15 @@ class Cila_model extends CI_model{
 	}
 
 	public function set_carrito($user_id, $articuloid, $cantidad){
-		//$articulo = $this->cila_model->getarticulos($articulo);
-
 		$data = array(
 			'carritoid' => $user_id,
 			'articuloid' => $articuloid,
 			'cantidad' => $cantidad
 		);
 
-		return $this->db->insert('carrito', $data, array('carritoid' => $user_id) );
-
+		return $this->db->insert('carrito', $data, array('carritoid2' => $user_id) );
 	}
+
 	public function del_carrito($carritoitem){
 		return $this->db->delete('carrito',array('carritoitem' => $carritoitem));
 	}

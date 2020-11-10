@@ -9,7 +9,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div class="content-panel">
+				<div class="showback ">
 					<h4>Items</h4>
 					<table id="carrito" class="display table table-striped table-advance table-hover" style="width:100%">
 						<thead>
@@ -32,8 +32,8 @@
 							<td>$ <?= number_format($item['articuloprecio'],2) ?></td>
 							<td>$ <?= number_format($item['cantidad'] * $item['articuloprecio'],2) ?></td>
 							<td>
-								<button class="btn btn-info btn_sust" data-id="<?= $item['carritoitem'] ?>" data-cant="<?= $item['cantidad'] ?>" title="Disminuir Cantidad"><i class="fa fa-minus"></i></button>
-								<button class="btn btn-success btn_add" data-id="<?= $item['carritoitem'] ?>" data-cant="<?= $item['cantidad'] ?>" title="Aumentar Cantidad"><i class="fa fa-plus"></i></button>
+								<button class="btn btn-default btn_sust" data-id="<?= $item['carritoitem'] ?>" data-cant="<?= $item['cantidad'] ?>" title="Disminuir Cantidad"><i class="fa fa-minus"></i></button>
+								<button class="btn btn-default btn_add" data-id="<?= $item['carritoitem'] ?>" data-cant="<?= $item['cantidad'] ?>" title="Aumentar Cantidad"><i class="fa fa-plus"></i></button>
 								&nbsp;| &nbsp;
 								<button class="btn btn-danger btn_dlt" data-id="<?= $item['carritoitem'] ?>" title="Eliminar"><i class="fa fa-trash"></i> </button>
 								
@@ -134,7 +134,13 @@ $(document).ready(function(){
 	//agregar añ carrito
 	$('#searchtext').change(function(){
 		var barcode = $(this).val();
-		alert(barcode);
+		console.log(barcode);
+	
+		//Llamar al ajax que agregue un item al carrito
+		$.post("<?= base_url();?>index.php/cila/add_to_cart_bc/"+userid+"/"+barcode+"/1").done(function() {
+		});
+
+		location.reload();
 	});
 	
 	//cambiar cantidad
@@ -159,7 +165,7 @@ $(document).ready(function(){
 		$.post("<?= base_url();?>index.php/cila/upd_to_cart/"+id+"/"+cantidad).done(function(data){
 				console.log(data);
 			});
-		location.reload();
+		//location.reload();
 	});
 	
 
