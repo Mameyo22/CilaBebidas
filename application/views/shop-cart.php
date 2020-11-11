@@ -138,6 +138,7 @@ $(document).ready(function(){
 	
 		//Llamar al ajax que agregue un item al carrito
 		$.post("<?= base_url();?>index.php/cila/add_to_cart_bc/"+userid+"/"+barcode+"/1").done(function() {
+			console.log('add');
 		});
 
 		location.reload();
@@ -165,7 +166,7 @@ $(document).ready(function(){
 		$.post("<?= base_url();?>index.php/cila/upd_to_cart/"+id+"/"+cantidad).done(function(data){
 				console.log(data);
 			});
-		//location.reload();
+		location.reload();
 	});
 	
 
