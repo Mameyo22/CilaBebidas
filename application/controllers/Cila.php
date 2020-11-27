@@ -209,13 +209,16 @@ class Cila extends CI_Controller{
 		//Obtner el articulo en base al codigo de barra
 
 		$articulo = $this->cila_model->get_articulo_bc($barcode);
-		return $this->cila_model->set_carrito($userid, $articulo, $cantidad);
-/*		if ($articulo){
-			return 'Ok';
-		}else{
-			return 'Articulo no Encontrado';
-		}
-*/	
+		$carritoitem = $this->cila_model->set_carrito($userid, $articulo['articuloid'], $cantidad);
+		//recuperar id
+		
+		$response = array(
+			'id' => $carritoitem,
+			'articulo' => $articulo['articuloid'],
+			'precio' => $articulo['articuloprecio'],
+			'cantidad' => $cantidad
+		);
+		echo json_encode($response);
 	}
 
 	public function del_to_cart($carritoitem){

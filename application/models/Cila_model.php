@@ -64,8 +64,7 @@ class Cila_model extends CI_model{
 
 		if ($query->num_rows() == 1){
 
-			$articulo = $query->row_array();
-			return $articulo['articuloid'];
+			return $query->row_array();
 		}else{
 			return $query->num_rows();
 		}
@@ -122,7 +121,9 @@ class Cila_model extends CI_model{
 			'cantidad' => $cantidad
 		);
 
-		return $this->db->insert('carrito', $data, array('carritoid2' => $user_id) );
+		$this->db->insert('carrito', $data, array('carritoid2' => $user_id) );
+		return $this->db->insert_id();
+		
 	}
 
 	public function del_carrito($carritoitem){
