@@ -200,6 +200,14 @@ class Cila extends CI_Controller{
 
 	}
 
+	public function ajax_cart(){
+	//Obtener carrito
+		$userid = $_SESSION['logged_in']['userid'];
+		$carrito = $this->cila_model->get_carrito($userid);
+
+		echo json_encode($carrito);
+	}
+
 	public function add_to_cart($userid,$articulo, $cantidad){
 		//Obtener el usuario logueado
 		$this->cila_model->set_carrito($userid, $articulo, $cantidad);
@@ -216,6 +224,7 @@ class Cila extends CI_Controller{
 			'id' => $carritoitem,
 			'articulo' => $articulo['articuloid'],
 			'precio' => $articulo['articuloprecio'],
+			'descripcion' => $articulo['articulodesc'],
 			'cantidad' => $cantidad
 		);
 		echo json_encode($response);

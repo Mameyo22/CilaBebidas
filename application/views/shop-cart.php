@@ -19,28 +19,8 @@
 							<th>Total</th>
 							<th>Acciones</th>
 						</thead>
-						<tbody>
-						<?php 
-						$total=0;
-						foreach($carrito as $item){ 
-							$total += $item['cantidad'] * $item['articuloprecio'];
-						?>
-						<tr>
-							<td><?= $item['cantidad'] ?></td>
-
-							<td><?= $item['articulodesc'] ?></td>
-							<td>$ <?= number_format($item['articuloprecio'],2) ?></td>
-							<td>$ <?= number_format($item['cantidad'] * $item['articuloprecio'],2) ?></td>
-							<td>
-								<button class="btn btn-default btn_sust" data-id="<?= $item['carritoitem'] ?>" data-cant="<?= $item['cantidad'] ?>" title="Disminuir Cantidad"><i class="fa fa-minus"></i></button>
-								<button class="btn btn-default btn_add" data-id="<?= $item['carritoitem'] ?>" data-cant="<?= $item['cantidad'] ?>" title="Aumentar Cantidad"><i class="fa fa-plus"></i></button>
-								&nbsp;| &nbsp;
-								<button class="btn btn-danger btn_dlt" data-id="<?= $item['carritoitem'] ?>" title="Eliminar"><i class="fa fa-trash"></i> </button>
-								
-							</td>
-						</tr>
-						<?php } ?>
-						
+						<tbody id="body">
+						<!-- se llena con ajax -->
 						</tbody>
 					</table>
 					
@@ -51,7 +31,7 @@
 					<h4>Pago </h4>
 					<div class="form-group ">
                     	<label for="total" class="control-label ">Total a Pagar</label>
-                   		<input type="text" class="form-control" id="total" value="<?= $total ?> " readonly>
+                   		<input type="text" class="form-control" id="total" value="0.00" readonly>
                     </div>
 					<div class="form-group ">
                     	<label for="pago" class="control-label ">Su Pago</label>
@@ -59,7 +39,7 @@
                     </div>
 					<div class="form-group ">
                     	<label for="vuelto"  id="labelvuelto" class="control-label ">Resta Pagar</label>
-                      	<input type="text" class="form-control red" id="vuelto"  value="<?= $total ?> " readonly disabled="true">
+                      	<input type="text" class="form-control red" id="vuelto"  value="0.00" readonly disabled="true">
 						<input type="hidden" naem="userid" id="userid" value="<?=  $userid = $_SESSION['logged_in']['userid']; ?>">
                     </div>
 					<button class="btn btn-success btn-lg" id="fincompra" disabled>Finalizar Compra</button>
@@ -78,7 +58,34 @@ $(document).ready(function(){
 	var userid = $('#userid').val();
 	var cantidad = 0;
 	 //Llevar el foco al inicio
-	 $('#searchtext').focus();
+	$('#searchtext').focus();
+
+	function table_reload(){
+		//Obtiene el carrito y actualiza la tabla
+		$.get("<?= base_url();?>index.php/cila/ajax_cart",function(data){
+			var response = JSON.parse(data);
+			total = 0.00;
+			var html = "";
+			var i;
+			for(i=0; i < response.length; i++){
+				//Cantidad, Articulo, Precio U, Total, Acciones
+				html += '<tr><td>'+ response[i].cantidad  + '</td><td>' + response[i].articulodesc  + '</td><td>$ '+ response[i].articuloprecio +'</td>';
+				html += '<td>$ '+ eval(response[i].cantidad*response[i].articuloprecio)  +'</td>';
+				html += '<td><button class="btn btn-default btn_sust" data-id="'+ response[i].carritoitem + '" data-cant="' + response[i].cantidad +'" title="Disminuir Cantidad"><i class="fa fa-minus"></i></button>';
+				html += '<button class="btn btn-default btn_add" data-id="'+ response[i].carritoitem + '" data-cant="'+ response[i].cantidad+'" title="Aumentar Cantidad"><i class="fa fa-plus"></i></button>';
+				html += '&nbsp;| &nbsp;';
+				html += '<button class="btn btn-danger btn_dlt" data-id="'+ response[i].carritoitem + '" title="Eliminar"><i class="fa fa-trash"></i> </button>';
+				html += '</td></tr>';
+				
+				//Total
+				total += eval(response[i].cantidad*response[i].articuloprecio);
+			}
+			$('#body').html(html);
+			$('#total').val(total);
+		});
+	}
+
+	table_reload();
 
 	//Borrar Articulo 
 	$('.btn_dlt').click(function(){
@@ -108,6 +115,7 @@ $(document).ready(function(){
 			$('#fincompra').attr('disabled',false);
 		}
 	});
+
 	//Finalizar Compra
 	$('#fincompra').click(function(){
 		//validar que no haya resto a pagar
@@ -118,7 +126,7 @@ $(document).ready(function(){
 			$.post("<?= base_url();?>index.php/cila/clear_cart/"+userid).done(function(data){
                  console.log(data);
 			 });
-			location.reload(true);
+			table_reload();
 		}
 
 	});
@@ -128,7 +136,7 @@ $(document).ready(function(){
 			$.post("<?= base_url();?>index.php/cila/clear_cart/"+userid).done(function(data){
                  console.log(data);
 			 });
-			location.reload(true);
+			table_reload();
 	});
 
 	//agregar añ carrito
@@ -138,12 +146,9 @@ $(document).ready(function(){
 	
 		//Llamar al ajax que agregue un item al carrito
 		$.post("<?= base_url();?>index.php/cila/add_to_cart_bc/"+userid+"/"+barcode+"/1",function(data,status) {
-			alert("Data: \nStatus: " + status);
+			console.log(response.descripcion);
 		});
-		//TODO
-		//Cambiar reload por agregar el articulo al DOM
-		
-		//location.reload(true);
+		table_reload();		
 	});
 	
 	//cambiar cantidad
@@ -157,7 +162,7 @@ $(document).ready(function(){
 				console.log(data);
 			});
 		}
-		location.reload(true);
+		table_reload();
 	});
 
 	$('.btn_add').click(function(){
@@ -168,7 +173,7 @@ $(document).ready(function(){
 		$.post("<?= base_url();?>index.php/cila/upd_to_cart/"+id+"/"+cantidad).done(function(data){
 				console.log(data);
 			});
-		location.reload(true);
+		table_reload();
 	});
 	
 
