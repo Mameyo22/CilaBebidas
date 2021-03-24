@@ -63,33 +63,19 @@
           <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
               <i class="fa fa-shopping-cart"></i>
-             	<span class="badge bg-important"><?= count($carrito) ?></span>
+             	<span class="badge bg-important" id="badge_cart">0</span>
             </a>
             <ul class="dropdown-menu extended tasks-bar">
               <div class="notify-arrow notify-arrow-green"></div>
               <li>
                 <p class="green">Detalle</p>
               </li>
-				  <?php
-				  	$total = 0;
-					foreach($carrito as $item){ 
-						$total += $item['cantidad'] * $item['articuloprecio'];
-					?>
-						<li>
-						<a href="<?= base_url();?>index.php/cila/view_cart">
-							<div class="task-info">
-								<div class="desc"><?= $item['cantidad'] ?> -  <?= $item['articulodesc']?> </div>
-								<div class="percent">  $ <?= number_format($item['cantidad'] * $item['articuloprecio'],2) ?> </div>
-							</div>
-						 </a>
-						</li>
-
-				<?php	}  ?>
+              <div id="detalle"></div>
 				<li>
 					<a href="<?= base_url();?>index.php/cila/view_cart">
 						<div class="task-total">
 							<div class="desc">Total</div>
-							<div class="total"> $ <?= number_format($total,2) ?></div>
+							<div class="total" id="totalH"> </div>
 						</div>
 					</a>
               	</li>
@@ -107,3 +93,40 @@
       </div>
     </header>
     <!--header end-->
+<script>
+  $(document).ready(function(){
+
+    function refresh_icon_cart(){
+    	//Actualizar el icono del carrito
+      var html="";
+	  	//Obtener el detalle del carrito
+		  $.get("<?= base_url();?>index.php/cila/ajax_cart",function(data){
+			  var response = JSON.parse(data);
+			  $('#badge_cart').html(response.length);
+        //rellenar la tabla detalle
+        var i;
+        var total = 0;
+        
+        for(i=0; i < response.length; i++){
+					
+          total += response[i].cantidad * response[i].articuloprecio;
+
+					html += '<li>';
+					html += '<a href="<?= base_url();?>index.php/cila/view_cart">';
+					html += '<div class="task-info">';
+					html += '<div class="desc">'+ response[i].cantidad +' -  '+ response[i].articulodesc +'</div>';
+					html += '<div class="percent">  $ '+ response[i].cantidad * response[i].articuloprecio +' </div>'
+					html += '</div>';
+					html += '</a></li>';
+
+        }
+        $('#detalle').html(html);
+        $('#totalH').html(parseFloat(total).toFixed(2));
+
+		  });
+	  }
+    
+    refresh_icon_cart();
+
+  });
+</script>

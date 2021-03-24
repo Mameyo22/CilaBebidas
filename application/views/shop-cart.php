@@ -20,7 +20,7 @@
 							<th>Acciones</th>
 						</thead>
 						<tbody id="body">
-						<!-- se llena con ajax -->
+						<!-- se llena con jquery -->
 						</tbody>
 					</table>
 					
@@ -60,12 +60,43 @@ $(document).ready(function(){
 	 //Llevar el foco al inicio
 	$('#searchtext').focus();
 
-	function table_reload(){
-		//Obtiene el carrito y actualiza la tabla
+    function refresh_icon_cart(){
+    	//Actualizar el icono del carrito
+      	var html="";
+	  	//Obtener el detalle del carrito
 		$.get("<?= base_url();?>index.php/cila/ajax_cart",function(data){
 			var response = JSON.parse(data);
+			$('#badge_cart').html(response.length);
+			//rellenar la tabla detalle
+			var i;
+			var total = 0;
+			
+			for(i=0; i < response.length; i++){
+						
+			total += response[i].cantidad * response[i].articuloprecio;
+
+						html += '<li>';
+						html += '<a href="<?= base_url();?>index.php/cila/view_cart">';
+						html += '<div class="task-info">';
+						html += '<div class="desc">'+ response[i].cantidad +' -  '+ response[i].articulodesc +'</div>';
+						html += '<div class="percent">  $ '+ response[i].cantidad * response[i].articuloprecio +' </div>'
+						html += '</div>';
+						html += '</a></li>';
+
+			}
+			$('#detalle').html(html);
+			$('#totalH').html(parseFloat(total).toFixed(2));
+
+		});
+	}
+
+	function table_reload(){
+		//Obtiene el carrito y actualiza la tabla
+		var html = "";
+		$.get("<?= base_url();?>index.php/cila/ajax_cart",function(data){
+			var response = JSON.parse(data);
+			console.log(response);
 			total = 0.00;
-			var html = "";
 			var i;
 			for(i=0; i < response.length; i++){
 				//Cantidad, Articulo, Precio U, Total, Acciones
@@ -81,22 +112,24 @@ $(document).ready(function(){
 				total += eval(response[i].cantidad*response[i].articuloprecio);
 			}
 			$('#body').html(html);
-			$('#total').val(total);
+			$('#total').val(parseFloat(total).toFixed(2));
+			refresh_icon_cart();
 		});
 	}
 
 	table_reload();
-
+	
 	//Borrar Articulo 
-	$('.btn_dlt').click(function(){
+	$('#body').on('click','.btn_dlt',function(){
+
         //obtener el id
         id = $(this).attr('data-id');
 		console.log('Id a eliminar' + id);
 		//eliminar el articulo
 		$.post("<?= base_url();?>index.php/cila/del_to_cart/"+id).done(function(data){
-                 console.log(data);
+                 console.log('eliminado');
+				 table_reload();
 			 });
-		location.reload(true);
 	});
 
 	//Cambio de pago
@@ -135,24 +168,25 @@ $(document).ready(function(){
 	$('#vaciar').click(function(){
 			$.post("<?= base_url();?>index.php/cila/clear_cart/"+userid).done(function(data){
                  console.log(data);
+				 table_reload();
 			 });
-			table_reload();
 	});
 
 	//agregar añ carrito
 	$('#searchtext').change(function(){
 		var barcode = $(this).val();
 		console.log(barcode);
-	
+		$(this).val('');
 		//Llamar al ajax que agregue un item al carrito
 		$.post("<?= base_url();?>index.php/cila/add_to_cart_bc/"+userid+"/"+barcode+"/1",function(data,status) {
-			console.log(response.descripcion);
+			console.log('Agregado');
 		});
 		table_reload();		
+
 	});
 	
 	//cambiar cantidad
-	$('.btn_sust').click(function(){
+	$('#body').on('click','.btn_sust',function(){
 		id = $(this).attr('data-id');
 		var cantidad = eval($(this).attr('data-cant'));
 		if (cantidad > 1){
@@ -160,20 +194,20 @@ $(document).ready(function(){
 			console.log(id + ' -> ' +cantidad);
 			$.post("<?= base_url();?>index.php/cila/upd_to_cart/"+id+"/"+cantidad).done(function(data){
 				console.log(data);
+				table_reload();
 			});
 		}
-		table_reload();
 	});
 
-	$('.btn_add').click(function(){
+	$('#body').on('click','.btn_add',function(){
 		id = $(this).attr('data-id');
 		var cantidad = eval($(this).attr('data-cant'));
 		cantidad++;
 		console.log(id + ' -> ' +cantidad);
 		$.post("<?= base_url();?>index.php/cila/upd_to_cart/"+id+"/"+cantidad).done(function(data){
 				console.log(data);
+				table_reload();
 			});
-		table_reload();
 	});
 	
 

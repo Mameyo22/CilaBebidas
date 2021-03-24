@@ -123,6 +123,7 @@ $(document).ready(function(){
 		userid = $('#userid').val();
 		console.log(userid);
 		//llamar a la carga del carrito
+
     });
 
 	$('#cantidad').change(function(){
@@ -135,14 +136,46 @@ $(document).ready(function(){
 	//Agregar al carrito
 	$('#agregar').click(function(){
 		//llamar al evento ajax que graba el carrito
-		$.post("<?= base_url();?>index.php/cila/add_to_cart/"+userid+"/"+articuloid + "/" + cantidad).done(function(data){
-                 console.log(data);
+		$.post("<?= base_url();?>index.php/cila/add_to_cart/"+userid+"/"+articuloid + "/" + cantidad,function(data){
+                 console.log('Agregado');
              });
 		//Cerrar el modal
 		$("#myModal").modal('hide');
 		//actualizar icono de carrito
-		location.reload();
+		//location.reload();
+		refresh_icon_cart();
 	});
+
+    function refresh_icon_cart(){
+    	//Actualizar el icono del carrito
+      var html="";
+	  	//Obtener el detalle del carrito
+		  $.get("<?= base_url();?>index.php/cila/ajax_cart",function(data){
+			  var response = JSON.parse(data);
+			  $('#badge_cart').html(response.length);
+        //rellenar la tabla detalle
+        var i;
+        var total = 0;
+        
+        for(i=0; i < response.length; i++){
+					
+          total += response[i].cantidad * response[i].articuloprecio;
+
+					html += '<li>';
+					html += '<a href="<?= base_url();?>index.php/cila/view_cart">';
+					html += '<div class="task-info">';
+					html += '<div class="desc">'+ response[i].cantidad +' -  '+ response[i].articulodesc +'</div>';
+					html += '<div class="percent">  $ '+ response[i].cantidad * response[i].articuloprecio +' </div>'
+					html += '</div>';
+					html += '</a></li>';
+
+        }
+        $('#detalle').html(html);
+        $('#totalH').html(parseFloat(total).toFixed(2));
+
+		  });
+	  }
+
 });
 </script>
  
