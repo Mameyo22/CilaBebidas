@@ -90,6 +90,22 @@ $(document).ready(function(){
 		});
 	}
 
+	function calcular_vuelto(){
+		total =  $('#total').val();
+		pago = $('#pago').val();
+		vuelto = total - pago;
+		console.log('total '+ total + ' vuelto: ' + vuelto);
+		if (eval(total) > eval(pago)){
+			$('#labelvuelto').html('Resta Pagar');
+			$('#vuelto').val(vuelto);
+			$('#fincompra').attr('disabled',true);
+		}else{
+			$('#labelvuelto').html('Vuelto');
+			$('#vuelto').val(vuelto * -1);
+			$('#fincompra').attr('disabled',false);
+		}
+	}
+
 	function table_reload(){
 		//Obtiene el carrito y actualiza la tabla
 		var html = "";
@@ -114,6 +130,7 @@ $(document).ready(function(){
 			$('#body').html(html);
 			$('#total').val(parseFloat(total).toFixed(2));
 			refresh_icon_cart();
+			calcular_vuelto();
 		});
 	}
 
@@ -134,19 +151,7 @@ $(document).ready(function(){
 
 	//Cambio de pago
 	$('#pago').change(function(){
-		total =  $('#total').val();
-		pago = $(this).val();
-		vuelto = total - pago;
-		console.log('total '+ total + ' vuelto: ' + vuelto);
-		if (eval(total) > eval(pago)){
-			$('#labelvuelto').html('Resta Pagar');
-			$('#vuelto').val(vuelto);
-			$('#fincompra').attr('disabled',true);
-		}else{
-			$('#labelvuelto').html('Vuelto');
-			$('#vuelto').val(vuelto * -1);
-			$('#fincompra').attr('disabled',false);
-		}
+		calcular_vuelto();
 	});
 
 	//Finalizar Compra
@@ -160,19 +165,23 @@ $(document).ready(function(){
                  console.log(data);
 			 });
 			table_reload();
+			$('#pago').val(0.00);
+			$('#vuelto').val(0.00);
 		}
 
 	});
 
 	//Eliminar Compra
 	$('#vaciar').click(function(){
-			$.post("<?= base_url();?>index.php/cila/clear_cart/"+userid).done(function(data){
-                 console.log(data);
-				 table_reload();
-			 });
+		$.post("<?= base_url();?>index.php/cila/clear_cart/"+userid).done(function(data){
+            console.log(data);
+			table_reload();
+		});
+		$('#pago').val(0.00);
+		$('#vuelto').val(0.00);
 	});
 
-	//agregar añ carrito
+	//agregar al carrito
 	$('#searchtext').change(function(){
 		var barcode = $(this).val();
 		console.log(barcode);
