@@ -64,7 +64,7 @@ $(document).ready(function(){
     	//Actualizar el icono del carrito
       	var html="";
 	  	//Obtener el detalle del carrito
-		$.get("<?= base_url();?>index.php/cila/ajax_cart",function(data){
+		$.when($.get("<?= base_url();?>index.php/cila/ajax_cart")).then(function(data){
 			var response = JSON.parse(data);
 			$('#badge_cart').html(response.length);
 			//rellenar la tabla detalle
@@ -109,7 +109,7 @@ $(document).ready(function(){
 	function table_reload(){
 		//Obtiene el carrito y actualiza la tabla
 		var html = "";
-		$.get("<?= base_url();?>index.php/cila/ajax_cart",function(data){
+		$.when($.get("<?= base_url();?>index.php/cila/ajax_cart")).then(function(data){
 			var response = JSON.parse(data);
 			console.log(response);
 			total = 0.00;
@@ -143,10 +143,10 @@ $(document).ready(function(){
         id = $(this).attr('data-id');
 		console.log('Id a eliminar' + id);
 		//eliminar el articulo
-		$.post("<?= base_url();?>index.php/cila/del_to_cart/"+id).done(function(data){
+		$.when($.post("<?= base_url();?>index.php/cila/del_to_cart/"+id)).then(function(data){
                  console.log('eliminado');
 				 table_reload();
-			 });
+		});
 	});
 
 	//Cambio de pago
@@ -161,10 +161,10 @@ $(document).ready(function(){
 			alert('completar el Pago');
 		}else{
 
-			$.post("<?= base_url();?>index.php/cila/clear_cart/"+userid).done(function(data){
+			$.when($.post("<?= base_url();?>index.php/cila/clear_cart/"+userid)).then(function(data){
                  console.log(data);
+				 table_reload();
 			 });
-			table_reload();
 			$('#pago').val(0.00);
 			$('#vuelto').val(0.00);
 		}
@@ -173,7 +173,7 @@ $(document).ready(function(){
 
 	//Eliminar Compra
 	$('#vaciar').click(function(){
-		$.post("<?= base_url();?>index.php/cila/clear_cart/"+userid).done(function(data){
+		$.when($.post("<?= base_url();?>index.php/cila/clear_cart/"+userid)).then(function(data){
             console.log(data);
 			table_reload();
 		});
@@ -187,10 +187,10 @@ $(document).ready(function(){
 		console.log(barcode);
 		$(this).val('');
 		//Llamar al ajax que agregue un item al carrito
-		$.post("<?= base_url();?>index.php/cila/add_to_cart_bc/"+userid+"/"+barcode+"/1",function(data,status) {
+		$.when($.post("<?= base_url();?>index.php/cila/add_to_cart_bc/"+userid+"/"+barcode+"/1")).then(function(data,status) {
 			console.log('Agregado');
+			table_reload();		
 		});
-		table_reload();		
 
 	});
 	
@@ -201,7 +201,7 @@ $(document).ready(function(){
 		if (cantidad > 1){
 			cantidad--;
 			console.log(id + ' -> ' +cantidad);
-			$.post("<?= base_url();?>index.php/cila/upd_to_cart/"+id+"/"+cantidad).done(function(data){
+			$.when($.post("<?= base_url();?>index.php/cila/upd_to_cart/"+id+"/"+cantidad)).then(function(data){
 				console.log(data);
 				table_reload();
 			});
@@ -213,7 +213,7 @@ $(document).ready(function(){
 		var cantidad = eval($(this).attr('data-cant'));
 		cantidad++;
 		console.log(id + ' -> ' +cantidad);
-		$.post("<?= base_url();?>index.php/cila/upd_to_cart/"+id+"/"+cantidad).done(function(data){
+		$.when($.post("<?= base_url();?>index.php/cila/upd_to_cart/"+id+"/"+cantidad)).then(function(data){
 				console.log(data);
 				table_reload();
 			});
