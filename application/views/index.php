@@ -30,7 +30,7 @@
 							<button type="button" class="btn btn-info" data-toggle="tooltip" title="Ver Articulo" id="ver" ?><i class="fa fa-search"></i></button>
 							</a>
                             
-                            <button type="button" class="btn btn-success btn_cart" data-toggle="modal" data-target="#myModal" title="Agregar a Carrito" id="add" data-id="<?= $articulo['articuloid'] ?>" data-desc="<?= $articulo['articulodesc'] ?>" data-precio="<?= $articulo['articuloprecio'] ?>" ><i class="fa fa-shopping-cart"></i></button>
+                            <button type="button" class="btn btn-success btn_cart" data-toggle="modal" data-target="#myModal" title="Agregar a Carrito" id="add_<?= $articulo['articuloid']; ?>" data-id="<?= $articulo['articuloid'] ?>" data-desc="<?= $articulo['articulodesc'] ?>" data-precio="<?= $articulo['articuloprecio'] ?>" ><i class="fa fa-shopping-cart"></i></button>
                         </td>
                     </tr>
                     <?php } ?>
@@ -108,7 +108,7 @@ $(document).ready(function(){
 
 
 	//Carrito de Compras
-	$('.btn_cart').click(function(){
+	$('#arttable').on('click','.btn_cart',function(e){
 		//obtener el id
 		articuloid = $(this).attr('data-id');
 		articulodesc = $(this).attr('data-desc');
@@ -138,14 +138,13 @@ $(document).ready(function(){
 		//llamar al evento ajax que graba el carrito
 		$.post("<?= base_url();?>index.php/cila/add_to_cart/"+userid+"/"+articuloid + "/" + cantidad,function(data){
                  console.log('Agregado');
+				 refresh_icon_cart();
              });
 		//Cerrar el modal
 		$("#myModal").modal('hide');
-		//actualizar icono de carrito
-		//location.reload();
-		refresh_icon_cart();
 	});
 
+	
     function refresh_icon_cart(){
     	//Actualizar el icono del carrito
       var html="";
